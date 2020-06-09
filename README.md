@@ -4,8 +4,7 @@
 
 > Creado por:
 
-> Juan Canahuate (nero)
-> Joseph Gomez (VirtualSlayer)
+> Juan Canahuate (nero) y Joseph Gomez (VirtualSlayer)
 
 ## Build Setup
 
