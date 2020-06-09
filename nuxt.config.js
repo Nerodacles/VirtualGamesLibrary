@@ -1,3 +1,5 @@
+import path from 'path'
+import fs from 'fs'
 
 export default {
   mode: 'universal',
@@ -17,6 +19,19 @@ export default {
     ]
   },
 
+  server: {
+    port: 8000, // default: 3000
+    host: '0.0.0.0', // default: localhost
+
+    https: {
+      key: fs.readFileSync(path.resolve(__dirname, 'server.key')),
+      cert: fs.readFileSync(path.resolve(__dirname, 'server.crt')),
+      handshakeTimeout: 120,
+      requestCert: false,
+      rejectUnauthorized: false,
+    }
+  },
+
   // <link href="https://fonts.googleapis.com/css?family=Montserrat:700|Open+Sans:400,600" rel="stylesheet">
 
   /*
@@ -33,6 +48,7 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    
   ],
   /*
   ** Nuxt.js dev-modules
@@ -61,7 +77,7 @@ export default {
     /*
     ** You can extend webpack config here
     */
-    extend (config, ctx) {
+    extend(config, ctx) {
     }
   }
 }
