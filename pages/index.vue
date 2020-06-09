@@ -1,6 +1,9 @@
 <template>
   <div class="container mx-auto py-16">
     <h1 class="font-heading uppercase mb-8">Popular Games</h1>
+    
+
+    
     <div class="game-container flex flex-wrap -mx-4">
       <nuxt-link :to="'/games/' + game.id" v-for="game in games" :key="game.id" class="w-full md:w-1/5 px-4 mb-12 no-underline">
         <img :src="game.cover.url.replace('t_thumb', 't_cover_big')" alt="cover">
@@ -18,7 +21,7 @@ export default {
   asyncData ({ params, error }) {
     const proxyurl = 'https://cors-anywhere.herokuapp.com/'
 
-    return axios.get(`${proxyurl}https://api-v3.igdb.com/games/?fields=name,genres.name,cover.url,popularity&order=popularity:desc&expand=genres`)
+    return axios.get(`${proxyurl}https://api-v3.igdb.com/games/?limit=14&fields=name,genres.name,cover.url,popularity&order=popularity:desc&expand=genres`)
       .then((res) => {
         return { 
           games: res.data
