@@ -21,7 +21,7 @@ export default {
   asyncData ({ params, error }) {
     const proxyurl = 'https://cors-anywhere.herokuapp.com/'
 
-    return axios.get(`${proxyurl}https://api-v3.igdb.com/games/?limit=14&fields=name,genres.name,cover.url,popularity&order=popularity:desc&expand=genres`)
+    return axios.get(`${proxyurl}https://api-v3.igdb.com/games/?limit=13&fields=name,genres.name,cover.url,popularity&order=popularity:desc&expand=genres`)
       .then((res) => {
         return { 
           games: res.data
