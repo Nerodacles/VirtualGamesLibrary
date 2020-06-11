@@ -61,18 +61,25 @@ export default {
   },
   asyncData({ params, error }) {
     const proxyurl = "https://cors-anywhere.herokuapp.com/";
+    const API_KEY = 'a5f7eb5b40fb4a9fb1ac2bb57b4a0284'
 
-    return axios
-      .get(
-        `${proxyurl}https://api-v3.igdb.com/games/${params.id}/?fields=name,involved_companies.company.name,cover.url,summary,platforms.name,first_release_date,websites.url,total_rating,screenshots.url&expand=platforms`
-      )
+    return axios({
+      url: `${proxyurl}https://api-v3.igdb.com/games/`,
+      method: 'POST',
+      headers: {
+          'Accept': 'application/json',
+          'user-key': API_KEY,
+          'X-Requested-With': 'XML_HttpRequest'
+      },
+      data: `fields name,involved_companies.company.*,cover.*,summary,platforms.*,first_release_date,websites.*,total_rating,screenshots.*;where id=${params.id};`
+    })
       .then(res => {
-        return {
+        return{
           game: res.data[0]
-        };
+        }
       })
-      .catch(e => {
-        console.log(e);
+      .catch(err => {
+        console.error(err);
       });
   },
   head() {
