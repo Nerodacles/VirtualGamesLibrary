@@ -3,12 +3,11 @@
     <h1 class="font-heading uppercase mb-8">Popular Games</h1>
     
     <div class="game-container flex flex-wrap -mx-4">
-      <nuxt-link :to="'/games/' + game.id" v-for="game in games" :key="game.id" class="w-full md:w-1/5 px-4 mb-12 no-underline">
-        <!-- <img :src="game.cover.url.replace('t_thumb', 't_cover_big')" alt="cover"> -->
-        <!-- <div class="text-black font-semibold text-lg overflow-hidden whitespace-no-wrap overflow-dots">{{ game.name }}</div> -->
-        <!-- <div class="text-gray-900 text-base overflow-hidden whitespace-no-wrap overflow-dots pb-1">{{ game.genres[0].name }}</div> -->
+      <nuxt-link :to="'/games/' + game.id" v-for="game in games.results" :key="game.id" class="w-full md:w-1/5 px-4 mb-12 no-underline">
+        <img :src="game.background_image" alt="cover">
+        <div class="text-black font-semibold text-lg overflow-hidden whitespace-no-wrap overflow-dots">{{ game.name }}</div>
+        <div class="text-gray-900 text-base overflow-  hidden whitespace-no-wrap overflow-dots pb-1">{{ game.genres[0].name }}</div>
       </nuxt-link>
-      <!-- <img v-for="game in games" :src="game.cover.url.replace('t_thumb', 't_cover_big')" alt="cover" > -->
     </div>
   </div>
 </template>
@@ -18,33 +17,30 @@ import axios from 'axios'
 
 export default {
   asyncData ({ params, error }) {
-    const proxyurl = 'https://cors-anywhere.herokuapp.com/';
-    const API_KEY = 'a5f7eb5b40fb4a9fb1ac2bb57b4a0284';
+    return axios({
+      url: `https://rawg-video-games-database.p.rapidapi.com/games`,
+      method: 'GET',
+      headers: {
+          'x-rapidapi-host': 'rawg-video-games-database.p.rapidapi.com',
+	        'x-rapidapi-key': '8a895adf10msh0d35a728b6ad2d7p1b0d63jsn0ec4375fd350',
+	        'useQueryString': true
+      },
+      data: ""
+    })
+      .then(res => {
 
-    // return axios({
-    //   url: `${proxyurl}https://api-v3.igdb.com/games/`,
-    //   method: 'GET',
-    //   headers: {
-    //       'Accept': 'application/json',
-    //       'user-key': API_KEY,
-    //       'X-Requested-With': 'XML_HttpRequest'
-    //   },
-    //   data: "fields *,name,genres.*,cover.*,popularity; limit 15; sort popularity desc;"
-    // })
-    //   .then(res => {
-    //     return{
-    //       games: res.data
-    //     }
-    //   })
-    //   .catch(err => {
-    //     console.error(err);
-    //   });
+        return{
+          games: res.data,
+        }
+      })
+      .catch(err => {
+        console.error(err);
+      });
   },
 
   data(data){
-    console.log(data)
     return{
-      games:[]
+      games: [],
     }
   }  
 }
