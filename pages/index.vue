@@ -18,7 +18,7 @@ import axios from 'axios'
 
 export default {
   asyncData ({ params, error }) {
-    // const proxyurl = 'https://cors-anywhere.herokuapp.com/'
+    const proxyurl = 'https://cors-anywhere.herokuapp.com/'
     // const API_KEY = 'a5f7eb5b40fb4a9fb1ac2bb57b4a0284'
 
     // return axios({
@@ -45,9 +45,9 @@ export default {
     return axios.get(`${proxyurl}https://api-v3.igdb.com/games/?fields=name,genres.name,cover.url,popularity&order=popularity:desc&expand=genres&limit=13`)
       .then((res) => {
         console.log(res)
-        // return { 
-        //   games: res.data
-        //   }
+        return { 
+          games: res.data
+          }
       })
       .catch((e) => {
         console.log(e)
