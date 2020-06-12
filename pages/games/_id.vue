@@ -59,15 +59,7 @@ export default {
     }
   },
   asyncData({ params, error }) {
-    return axios({
-      url: `https://rawg-video-games-database.p.rapidapi.com/games/${params.id}`,
-      method: 'GET',
-      headers: {
-          'x-rapidapi-host': 'rawg-video-games-database.p.rapidapi.com',
-	        'x-rapidapi-key': '8a895adf10msh0d35a728b6ad2d7p1b0d63jsn0ec4375fd350',
-	        'useQueryString': true
-      },
-    })
+    return axios(`https://rawg-video-games-database.p.rapidapi.com/games/${params.id}`)
       .then(res => {
         console.log(res)
         return{
