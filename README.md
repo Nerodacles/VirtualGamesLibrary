@@ -4,7 +4,7 @@
 
 > Creado por:
 
-> Juan Canahuate (nero) y Joseph Gomez (VirtualSlayer)
+> Juan Canahuate (nero) y Joseph Gomez (JosephGP2)
 
 ## Build Setup
 
