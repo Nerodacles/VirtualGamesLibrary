@@ -12,7 +12,7 @@
 
      <div class="container mx-auto flex flex-col md:flex-row">
       <div class="w-full md:w-1/4 -mt-16">
-        <img :src="games.background_image_additional" alt="cover" class="mb-8">
+        <img :src="games.background_image " alt="cover" class="mb-8">
         <div class="mb-4">
           <span class="font-semibold text-white">Platforms:</span>
           <span v-for="platform in games.platforms" :key="platform.platform.id" class="text-white">{{ platform.platform.name }}, </span>
@@ -28,19 +28,14 @@
         </div>
 
         <div class="mb-6">
-          <div class="text-5xl font-semibold text-white">{{ games.rating }}%</div>
+          <div class="Stars" :style="`--rating: ${games.rating};`" aria-label="Rating of this product is 2.3 out of 5."></div>
+
           <div class="font-semibold text-white">Overall Rating</div>
         </div>
 
       </div>
       <div class="w-full md:w-3/4 md:ml-12 py-8 leading-normal">
       <p class="mb-12 text-white">{{ games.description_raw }}</p>
-      
-      <!-- <div class="flex flex-wrap -mx-4">
-        <a v-for="screenshot in game.screenshots" :key="screenshot.cloudinary_id" class="w-full md:w-1/4 px-4 mb-12 no-underline">
-          <img :src="screenshot.url.replace('t_thumb', 't_1080p')" alt="screenshot">
-        </a>
-      </div> -->
       </div>
     </div>
   </div>
@@ -55,8 +50,8 @@ export default {
       return this.games.website
     },
     backgroundImage(){
-      return this.games.background_image
-    }
+      return this.games.background_image_additional
+    },
   },
   asyncData({ params, error }) {
     return axios(`https://rawg-video-games-database.p.rapidapi.com/games/${params.id}`)
@@ -72,8 +67,31 @@ export default {
   },
   head() {
     return {
-      // title: this.game.name + " | Video Games Library"
+      title: this.games.name + " | Video Games Library"
     };
   }
 };
 </script>
+
+<style>
+:root {
+  --star-size: 60px;
+  --star-color: #fff;
+  --star-background: #fc0;
+}
+
+.Stars {
+  --percent: calc(var(--rating) / 5 * 100%);
+  display: inline-block;
+  font-size: var(--star-size);
+  font-family: Times;
+  line-height: 1;
+}
+.Stars::before {
+  content: '★★★★★';
+  letter-spacing: 3px;
+  background: linear-gradient(90deg, var(--star-background) var(--percent), var(--star-color) var(--percent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+</style>
