@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-blue-1000 font-semibold">
+    <div class="bg-gray-900 font-semibold">
         <div class="container mx-auto flex justify-between items-center py-6">
             <nuxt-link to="/" class="text-white no-underline hover:text-gray-400">Home</nuxt-link>
             <div class="flex">
