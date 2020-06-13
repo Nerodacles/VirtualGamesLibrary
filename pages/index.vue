@@ -1,7 +1,9 @@
 <template>
-  <div class="flex mb-4 h-screen">
+  <div class="flex h-screen">
     <div class="w-full md:w-1/4 bg-gray-400 p-4 text-center text-gray-700 h-full"> 
+    <div class="flex items-center border-b border-2 border-gray-500 py-2 bg-teal-800 px-2 divide-y divide-gray-400">
       <input type="number" class="appearance-none bg-transparent border-none w-full text-white mr-3 py-1 px-2 leading-tight focus:outline-none" v-model="limite" id="limit" placeholder="Limite de resultados">
+    </div>
     <!--
       Esta es la barra de la izquierda, donde se va a agregar la busqueda de plataformas. ETC
     -->
@@ -13,14 +15,12 @@
         y tiene el contenido de los juegos.
       -->
       <div class="flex items-center border-b border-2 border-gray-500 py-2 bg-teal-800 px-2 divide-y divide-gray-400">
-      <input class="appearance-none bg-transparent border-none w-full text-white mr-3 py-1 px-2 leading-tight focus:outline-none" v-model="keyword" id="search" placeholder="Search">
+        <input class="appearance-none bg-transparent border-none w-full text-white mr-3 py-1 px-2 leading-tight focus:outline-none" v-model="keyword" id="search" placeholder="Search">
       
       </div>
       <div class="border-b border-2 border-gray-500 py-2 bg-gray-400 px-2 h-full">
-        <div class="">
-          <h1 class="font-heading uppercase mb-8 text-black" v-if="!keyword">Popular Games</h1>  
-          <h1 class="font-heading uppercase mb-8 text-black" v-if="keyword">Search game {{ keyword }}</h1>
-        </div>  
+          <h1 class="font-heading uppercase mb-1 text-black" v-if="!keyword">Popular Games</h1>  
+          <h1 class="font-heading uppercase mb-1 text-black" v-if="keyword">Search game {{ keyword }}</h1>
         <div class="game-container flex flex-wrap border-3 border-gray-500">
           <nuxt-link :to="'/games/' + game.id" v-for="game in games" :key="game.id" class="w-full md:w-1/5 py-3 px-3">
             <img thumbnail fluid :src="game.background_image" alt="cover" class="md:h-20 w-full">
