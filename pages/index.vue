@@ -44,42 +44,25 @@ export default {
     }),
 
     // Esto es para que cuando se cargue la pagina, automatico le lleguen datos.
-    async fetch(){
+    async fetch(){ 
       return axios(`https://rawg-video-games-database.p.rapidapi.com/games`)
-      .then(res => {
-        this.games= res.data.results;
-      })
-      .catch(err => {
-        console.error(err);
-      });
+      .then(res => { this.games= res.data.results } )
+      .catch(err => { console.error(err) } );
     },
     
-  // buscar juegos
   methods: {
     searchGames() {
-      axios
-        .get("https://rawg-video-games-database.p.rapidapi.com/games", {  // Se empleza con la llamada a la api
-          params: {
-            search: this.keyword, // Se busca la palabra deseada
-            page_size: this.limite // limite de resultados
-          }
-        })
-        .then(res => {
-          this.games = res.data.results; // se le mandan los datos de la busqueda a games y se guarda como un array
-        })
-        .catch(err => {
-          console.log(err); // si hay algun error se muestre en la consola
-        })
+      axios.get("https://rawg-video-games-database.p.rapidapi.com/games",  // Se empleza con la llamada a la api
+        { params: { search: this.keyword, page_size: this.limite } })
+        // se le mandan los datos de la busqueda a games y se guarda como un array
+        .then(res => { this.games = res.data.results } )
+        .catch(err => { console.log(err) } )
     }
   },
 
   watch: { // Esto es para que cuando cambie el valor de keyword, se busque automaticamente
-    keyword(newKeyword, oldKeyword){
-      this.searchGames();
-    },
-    limite(newLimite, oldLimite){
-      this.searchGames();
-    }
+    keyword(newKeyword, oldKeyword){ this.searchGames() },
+    limite(newLimite, oldLimite){ this.searchGames() }
   }
-};
+}
 </script>

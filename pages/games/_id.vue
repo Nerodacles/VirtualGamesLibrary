@@ -28,14 +28,19 @@
         </div>
 
         <div class="mb-6">
-          <div class="Stars" :style="`--rating: ${games.rating};`" aria-label="Rating of this product is 2.3 out of 5."></div>
+          <div class="Stars" :style="`--rating: ${games.rating};`"></div>
 
           <div class="font-semibold text-white">Overall Rating</div>
         </div>
 
       </div>
       <div class="w-full md:w-3/4 md:ml-12 py-8 leading-normal">
-      <p class="mb-12 text-white">{{ games.description_raw }}</p>
+        <p class="mb-12 text-white">{{ games.description_raw }}</p>
+        <div class="flex flex-wrap -mx-4">
+          <!-- <a v-for="screenshot in screenShot" :key="screenshot.id" class="w-full md:w-1/4 px-4 mb-12 no-underline"> -->
+            <!-- <img :src="screenshot.image" alt="screenshot"> -->
+          <!-- </a> -->
+        </div>
       </div>
     </div>
   </div>
@@ -45,32 +50,28 @@
 import axios from "axios";
 
 export default {
+  // aqui se guardaran las screenshots en un array
+  // data: () => ({ screen: [] }),
+
   computed: {
-    getOfficialWebsite() {
-      return this.games.website
-    },
-    backgroundImage(){
-      return this.games.background_image_additional
-    },
+    getOfficialWebsite() { return this.games.website },
+    backgroundImage() { return this.games.background_image_additional },
   },
+
+  async fetch({params}){
+    return axios(`https://rawg-video-games-database.p.rapidapi.com/games/${params.id}/screenshots`)
+      .then((res) => { return { screens: res.data.results } })
+      .catch((err) => { console.error(err) });
+  },
+
   asyncData({ params, error }) {
     return axios(`https://rawg-video-games-database.p.rapidapi.com/games/${params.id}`)
-      .then(res => {
-        console.log(res)
-        return{
-          games: res.data,
-        }
-      })
-      .catch(err => {
-        console.error(err);
-      });
+      .then(res => { return { games: res.data } })
+      .catch(err => { console.error(err) });
   },
-  head() {
-    return {
-      title: this.games.name + " | Video Games Library"
-    };
-  }
-};
+
+  head() { return { title: this.games.name + " | Video Games Library" } }
+}
 </script>
 
 <style>
