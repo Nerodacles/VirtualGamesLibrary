@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-600">
+  <div class="">
     <div class="hero bg-gray-600" :style="`background:url(${backgroundImage}); background-size:cover`">
       <div class="container mx-auto flex flex-col md:flex-row items-end pb-4" style="height:250px">
         <div class="w-full md:w-1/4"></div>
@@ -59,10 +59,13 @@
 <script>
 import axios from "axios"
 import Media from '@dongido/vue-viaudio'
+import VueMaterial from 'vue-material'
+import 'vue-material/dist/theme/default-dark.css'
 
 export default {
   components: {
-    Media
+    Media,
+    VueMaterial
   },
 
   // aqui se guardaran las screenshots en un array

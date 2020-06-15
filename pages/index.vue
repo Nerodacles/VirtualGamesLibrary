@@ -1,5 +1,5 @@
 <template>
-  <div class="flex h-screen" >
+  <div class="flex h-screen">
     <div class="w-full md:w-1/4 p-4 text-center text-gray-700 h-full"> 
     <div class="flex items-center border-b border-2 py-2 px-2 divide-y divide-gray-400">
       <input type="number" class="appearance-none bg-transparent border-none w-full text-white mr-3 py-1 px-2 leading-tight focus:outline-none" v-model="limite" id="limit" placeholder="Limite de resultados">
@@ -7,18 +7,22 @@
 
     </div>
     <div class="w-full md:w-3/4 p-4 text-center text-gray-200 h-full">
-      <div class="flex items-center border-b border-2 py-2 bg-white px-2 divide-y divide-gray-800">
+      <div class="flex items-center border-b border-2 py-2 px-2 divide-y divide-gray-800">
         <input class="appearance-none bg-transparent border-none w-full text-white mr-3 py-1 px-2 leading-tight focus:outline-none" v-model="keyword" id="search" placeholder="Search">
       
       </div>
       <div class="py-2 px-2 h-full">
-          <h1 class="font-heading uppercase mb-1 text-black" v-if="!keyword">Popular Games</h1>  
-          <h1 class="font-heading uppercase mb-1 text-black" v-if="keyword">Search game {{ keyword }}</h1>
-        <div class="game-container flex flex-wrap">
-          <nuxt-link :to="'/games/' + game.id" v-for="game in games" :key="game.id" class="w-full md:w-1/5 py-3 px-3">
-            <img thumbnail fluid :src="game.background_image" alt="cover" class="md:h-20 w-full">
-            <div class="text-black font-semibold text-base overflow-hidden whitespace-no-wrap overflow-dots">{{ game.name }}</div>
-          </nuxt-link>
+          <h1 class="font-heading uppercase mb-1 text-white" v-if="!keyword">Popular Games</h1>  
+          <h1 class="font-heading uppercase mb-1 text-white" v-if="keyword">Search game {{ keyword }}</h1>
+        <div>
+          <div class="game-container flex flex-wrap">
+            <nuxt-link :to="'/games/' + game.id" v-for="game in games" :key="game.id" class="w-full md:w-1/5 py-3 px-3">
+              <div class="text-white hover:text-gray-600">
+              <img thumbnail fluid :src="game.background_image" alt="cover" class="md:h-20 w-full">
+              <div class="font-semibold text-base overflow-hidden whitespace-no-wrap overflow-dots">{{ game.name }}</div>
+              </div>
+            </nuxt-link>
+          </div>
         </div>
       </div>
     </div>
@@ -27,8 +31,14 @@
 
 <script>
 import axios from 'axios'
+import VueMaterial from 'vue-material'
+import 'vue-material/dist/theme/default-dark.css'
 
 export default {
+  components: {
+    VueMaterial
+  },
+
   data: () => ({
     games: [], // aqui se guardaran los juegos en un array
     keyword: "", // palabra que se buscara
