@@ -43,12 +43,12 @@
             <img :src="screenshot.image" alt="screenshot">
           </a>
         </div>
-        <p class="font-semibold text-white">Trailer:</p>
-        <div class="flex flex-wrap">
+        <p class="font-semibold text-white" v-if="games.clip != null">Trailer:</p>
+        <div class="flex flex-wrap" v-if="games.clip != null">
           <Media 
             :kind="'video'"
             :controls="true"
-            :src="getVideos.clip">
+            :src="games.clip.clip">
           </Media>
         </div>
       </div>
@@ -77,7 +77,6 @@ export default {
   computed: {
     getOfficialWebsite() { return this.games.website },
     backgroundImage() { return this.games.background_image_additional },
-    getVideos() { return this.games.clip },
   },
 
   // head() { return { title: this.games.name + " | Video Games Library" } }
