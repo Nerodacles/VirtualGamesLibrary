@@ -35,11 +35,21 @@
 
       </div>
       <div class="w-full md:w-3/4 md:ml-12 py-8 leading-normal">
+        <p class="font-semibold text-white">Description:</p>
         <p class="mb-12 text-white">{{ games.description_raw }}</p>
+        <p class="font-semibold text-white">Screenshots:</p>
         <div class="flex flex-wrap -mx-4">
-          <!-- <a v-for="screenshot in screenShot" :key="screenshot.id" class="w-full md:w-1/4 px-4 mb-12 no-underline"> -->
-            <!-- <img :src="screenshot.image" alt="screenshot"> -->
-          <!-- </a> -->
+          <a v-for="screenshot in screen" :key="screenshot.id" class="w-full md:w-1/4 px-4 mb-12 no-underline">
+            <img :src="screenshot.image" alt="screenshot">
+          </a>
+        </div>
+        <p class="font-semibold text-white">Trailer:</p>
+        <div class="flex flex-wrap">
+          <Media 
+            :kind="'video'"
+            :controls="true"
+            :src="getVideos.clip">
+          </Media>
         </div>
       </div>
     </div>
@@ -47,30 +57,30 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from "axios"
+import Media from '@dongido/vue-viaudio'
 
 export default {
+  components: {
+    Media
+  },
+
   // aqui se guardaran las screenshots en un array
-  // data: () => ({ screen: [] }),
+  data: () => ({ screen: [] }),
+
+  async asyncData({ params }) {
+    const games = await axios.get(`https://rawg-video-games-database.p.rapidapi.com/games/${params.id}`);
+    const screen = await axios.get(`https://rawg-video-games-database.p.rapidapi.com/games/${params.id}/screenshots`);
+    return { games: games.data, screen: screen.data.results };
+  },
 
   computed: {
     getOfficialWebsite() { return this.games.website },
     backgroundImage() { return this.games.background_image_additional },
+    getVideos() { return this.games.clip },
   },
 
-  async fetch({params}){
-    return axios(`https://rawg-video-games-database.p.rapidapi.com/games/${params.id}/screenshots`)
-      .then((res) => { return { screens: res.data.results } })
-      .catch((err) => { console.error(err) });
-  },
-
-  asyncData({ params, error }) {
-    return axios(`https://rawg-video-games-database.p.rapidapi.com/games/${params.id}`)
-      .then(res => { return { games: res.data } })
-      .catch(err => { console.error(err) });
-  },
-
-  head() { return { title: this.games.name + " | Video Games Library" } }
+  // head() { return { title: this.games.name + " | Video Games Library" } }
 }
 </script>
 

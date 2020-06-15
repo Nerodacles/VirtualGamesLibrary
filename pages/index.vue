@@ -19,7 +19,7 @@
       
       </div>
       <div class="border-b border-2 border-gray-500 py-2 bg-gray-400 px-2 h-full">
-          <h1 class="font-heading uppercase mb-1 text-black" v-if="!keyword">Popular Games</h1>  
+          <h1 class="font-heading uppercase mb-1 text-black" v-if="!keyword">Video Games</h1>  
           <h1 class="font-heading uppercase mb-1 text-black" v-if="keyword">Search game {{ keyword }}</h1>
         <div class="game-container flex flex-wrap border-3 border-gray-500">
           <nuxt-link :to="'/games/' + game.id" v-for="game in games" :key="game.id" class="w-full md:w-1/5 py-3 px-3">
@@ -43,8 +43,8 @@ export default {
     limite: "" // limite de items
     }),
 
-    // Esto es para que cuando se cargue la pagina, automatico le lleguen datos.
-    async fetch(){ 
+  // Esto es para que cuando se cargue la pagina, automatico le lleguen datos.
+  async fetch(){ 
       return axios(`https://rawg-video-games-database.p.rapidapi.com/games`)
       .then(res => { this.games= res.data.results } )
       .catch(err => { console.error(err) } );
