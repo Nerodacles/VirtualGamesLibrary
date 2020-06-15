@@ -79,7 +79,7 @@ export default {
     backgroundImage() { return this.games.background_image_additional },
   },
 
-  // head() { return { title: this.games.name + " | Video Games Library" } }
+  head() { return { title: this.games.name + " | Video Games Library" } }
 }
 </script>
 

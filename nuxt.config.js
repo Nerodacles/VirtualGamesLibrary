@@ -32,7 +32,7 @@ export default {
     }
   },
 
-  router: { base: '/VirtualGames/' },
+  // router: { base: '/VirtualGames/' },
 
   // <link href="https://fonts.googleapis.com/css?family=Montserrat:700|Open+Sans:400,600" rel="stylesheet">
 
