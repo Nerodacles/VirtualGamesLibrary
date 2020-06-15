@@ -36,7 +36,8 @@
       </div>
       <div class="w-full md:w-3/4 md:ml-12 py-8 leading-normal">
         <p class="font-semibold text-white">Description:</p>
-        <p class="mb-12 text-white">{{ games.description_raw }}</p>
+        <!-- <p class="mb-12 text-white">{{ games.description_raw }}</p> -->
+        <span v-html="getDescription" class="text-white"></span>
         <p class="font-semibold text-white">Screenshots:</p>
         <div class="flex flex-wrap -mx-4">
           <a v-for="screenshot in screen" :key="screenshot.id" class="w-full md:w-1/4 px-4 mb-12 no-underline">
@@ -60,12 +61,14 @@
 import axios from "axios"
 import Media from '@dongido/vue-viaudio'
 import VueMaterial from 'vue-material'
+
+
 import 'vue-material/dist/theme/default-dark.css'
 
 export default {
   components: {
     Media,
-    VueMaterial
+    VueMaterial,
   },
 
   // aqui se guardaran las screenshots en un array
@@ -80,6 +83,7 @@ export default {
   computed: {
     getOfficialWebsite() { return this.games.website },
     backgroundImage() { return this.games.background_image_additional },
+    getDescription() { return this.games.description}
   },
 
   head() { return { title: this.games.name + " | Video Games Library" } }

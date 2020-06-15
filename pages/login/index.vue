@@ -1,5 +1,5 @@
 <template>
-    <div  class="bg-gray-500 flex-wrap h-full">
+    <div  class="flex-wrap h-full">
         <div id="login">
             <h1>Login</h1>
             <input type="text" name="username" v-model="input.username" placeholder="Username" />

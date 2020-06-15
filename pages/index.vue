@@ -4,7 +4,9 @@
     <div class="flex items-center border-b border-2 py-2 px-2 divide-y divide-gray-400">
       <input type="number" class="appearance-none bg-transparent border-none w-full text-white mr-3 py-1 px-2 leading-tight focus:outline-none" v-model="limite" id="limit" placeholder="Limite de resultados">
     </div>
-
+    <div class="flex items-center border-b border-2 py-2 px-2 divide-y divide-gray-400">
+      <button class=""></button>
+    </div>
     </div>
     <div class="w-full md:w-3/4 p-4 text-center text-gray-200 h-full">
       <div class="flex items-center border-b border-2 py-2 px-2 divide-y divide-gray-800">
@@ -18,8 +20,8 @@
           <div class="game-container flex flex-wrap">
             <nuxt-link :to="'/games/' + game.id" v-for="game in games" :key="game.id" class="w-full md:w-1/5 py-3 px-3">
               <div class="text-white hover:text-gray-600">
-              <img thumbnail fluid :src="game.background_image" alt="cover" class="md:h-20 w-full">
-              <div class="font-semibold text-base overflow-hidden whitespace-no-wrap overflow-dots">{{ game.name }}</div>
+                <img thumbnail fluid :src="game.background_image" alt="cover" class="md:h-20 w-full">
+                <div class="font-semibold text-base overflow-hidden whitespace-no-wrap overflow-dots">{{ game.name }}</div>
               </div>
             </nuxt-link>
           </div>

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Virtual games dev app",
   "author": "Juanma Canahuate",
-  "private": true,
+  "private": false,
   "scripts": {
     "deploy": "push-dir --dir=dist --branch=gh-pages --cleanup",
     "dev": "nuxt",
