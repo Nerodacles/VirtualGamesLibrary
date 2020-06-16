@@ -5,7 +5,7 @@
         <div class="w-full md:w-1/4"></div>
         <div class="w-full md:w-3/4 md:ml-12">
           <h1 class="font-heading ">{{ games.name }}</h1>
-          <div v-if="(games.publishers != null) && (games.publishers == [])">{{ games.publishers[0].name }}</div>
+          <div v-if="(games.publishers != null) && (games.publishers != [])">{{ games.publishers[0].name }}</div>
         </div>
       </div>
     </div>
