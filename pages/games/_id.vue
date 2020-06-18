@@ -4,13 +4,12 @@
       <div class="container mx-auto flex flex-col md:flex-row items-end pb-4" style="height:250px">
         <div class="w-full md:w-1/4"></div>
         <div class="w-full md:w-3/4 md:ml-12">
-          <h1 class="font-heading ">{{ games.name }}</h1>
+          <h1 class="font-heading">{{ games.name }}</h1>
           <div v-if="(games.publishers != null) && (games.publishers != [])">{{ games.publishers[0].name }}</div>
         </div>
       </div>
     </div>
-
-     <div class="container mx-auto flex flex-col md:flex-row ">
+    <div class="container mx-auto flex flex-col md:flex-row ">
       <div class="w-full md:w-1/4 -mt-16">
         <img :src="games.background_image " alt="cover" class="mb-8" v-if="games.background_image != null">
 
@@ -61,7 +60,7 @@
         <p class="font-semibold">Description:</p>
         <span v-html="getDescription" class=""></span>
         <br>
-        <p class="font-semibold ">Screenshots:</p>
+        <p class="font-semibold">Screenshots:</p>
         <div class="flex flex-wrap -mx-4">
           <a v-for="screenshot in screen" :key="screenshot.id" class="w-full md:w-1/4 px-4 mb-12 no-underline">
             <img :src="screenshot.image" alt="screenshot">
