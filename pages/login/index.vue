@@ -12,7 +12,7 @@
 </template>
 
 <script>
-        import VueCookies from 'vue-cookies'
+    import VueCookies from 'vue-cookies'
 
     export default {
         name: 'Login',
@@ -30,11 +30,10 @@
                 if(this.input.username != "" && this.input.password != "") {
                     if(this.input.username == "Admin" && this.input.password == "Admin") {
                         this.$emit("authenticated", true);
-                        alert(VueCookies.isKey("Admin"));
                         VueCookies.set(this.input.username,this.key,this.input.password);
                         this.$router.replace({ name: "secure" });
                         location="/";
-
+                        
                     } else {
                         alert("The username and / or password is incorrect");
                     }
