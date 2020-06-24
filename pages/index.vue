@@ -125,7 +125,7 @@ export default {
     platform_id: null, // id de plataformas
     platform_name: null, // nombre de la plataforma
     BToggle: true, //
-    selected: '', 
+    selected: null, 
     genres: [],
     }),
 
