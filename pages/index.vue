@@ -124,7 +124,7 @@ export default {
     limite: null, // limite de items
     platform_id: null, // id de plataformas
     platform_name: null, // nombre de la plataforma
-    BToggle: true, //
+    BToggle: true,
     selected: null, 
     genres: [],
     }),
@@ -134,9 +134,6 @@ export default {
     const games = await axios(`https://rawg-video-games-database.p.rapidapi.com/games/lists/main?ordering=-relevance&discover=true`);
     const generos = await axios('https://rawg-video-games-database.p.rapidapi.com/genres');
     return { games: games.data.results, genres: generos.data.results }
-    // return axios(`https://rawg-video-games-database.p.rapidapi.com/games/lists/main?ordering=-relevance&discover=true`)
-    // .then(res => { this.games = res.data.results } )
-    // .catch(err => { console.error(err) } );
     },
     
   methods: {
