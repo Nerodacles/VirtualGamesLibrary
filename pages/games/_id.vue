@@ -82,7 +82,6 @@
 <script>
 import axios from "axios"
 import Media from '@dongido/vue-viaudio'
-import VueMaterial from 'vue-material'
 
 
 import 'vue-material/dist/theme/default-dark.css'
@@ -90,7 +89,6 @@ import 'vue-material/dist/theme/default-dark.css'
 export default {
   components: {
     Media,
-    VueMaterial,
   },
 
   // aqui se guardaran las screenshots en un array

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex h-screen">
+  <div class="flex">
     <div class="block lg:hidden">
       <button class="flex items-center px-3 py-2 border rounded hover:text-white hover:border-white" v-on:click='toggle'>
         <svg class="fill-current h-3 w-3" viewBox="0 0 20 20">
@@ -7,7 +7,7 @@
           <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
       </button>
     </div>
-    <div class="w-full md:w-1/4 p-4 text-center text-gray-700 h-full" v-if="BToggle">
+    <div class="md:w-1/4 p-4 text-center text-gray-700" v-if="BToggle">
       <div class="flex items-center py-2 px-2 divide-y divide-gray-400">
         <input type="number" class="appearance-none bg-transparent border-none w-full mr-3 py-1 px-2 leading-tight focus:outline-none" v-model="limite" id="limit" placeholder="Limite de resultados" min="1" max="40">
       </div>
@@ -17,7 +17,7 @@
           width="32" height="32"
           viewBox="0 0 172 172"
           style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#ffffff"><path d="M45.6875,26.875l-1.67969,2.18359l-17.13281,22.84375v93.22266h118.25v-93.22266l-17.13281,-22.84375l-1.67969,-2.18359zM51.0625,37.625h69.875l8.0625,10.75h-86zM37.625,59.125h96.75v75.25h-96.75zM68.86719,69.875c-2.96045,0.27295 -5.14404,2.91846 -4.87109,5.87891c0.27295,2.96045 2.91846,5.14404 5.87891,4.87109h32.25c1.93164,0.02099 3.73731,-0.98682 4.72412,-2.66651c0.96582,-1.67969 0.96582,-3.7373 0,-5.41699c-0.98681,-1.67969 -2.79248,-2.6875 -4.72412,-2.66651h-32.25c-0.16797,0 -0.33594,0 -0.50391,0c-0.16797,0 -0.33594,0 -0.50391,0z"></path></g></g></svg>
-        <button v-on:click="popularGames, platform_id = null, selected = null" class="text-white">Popular Games</button>
+        <button v-on:click="popularGames, platform_id=null, selected=null, keyword=null" class="text-white">Popular Games</button>
       </div>
       <div class="flex items-center py-2 px-2">
         <svg xmlns="http://www.w3.org/2000/svg" 
@@ -66,7 +66,7 @@
       </div>
     </div>
 
-    <div class="w-full md:w-3/4 p-4 text-center text-gray-200 h-full">
+    <div class="w-1/2 md:w-3/4 p-4 text-center text-gray-200">
       <div class="flex items-center border-b border-2 py-2 px-2">
         <input class="appearance-none bg-transparent border-none w-full text-white mr-3 py-1 px-2 leading-tight focus:outline-none" v-model="keyword" id="search" placeholder="Search">
       </div>
@@ -74,19 +74,23 @@
         <div>
           <h1 class="font-heading uppercase mb-1 text-white" v-if="(!keyword) && (!platform_id) && (!selected)">Popular Games</h1>  
           <h1 class="font-heading uppercase mb-1 text-white" v-if="(keyword) && (!platform_id) && (!selected)">Search game {{ keyword }}</h1>
-          <h1 class="font-heading uppercase mb-1 text-white" v-if="(!keyword) && (platform_id)">Popular {{ platform_name }} games</h1>
+          <h1 class="font-heading uppercase mb-1 text-white" v-if="(!keyword) && (platform_id==1)">Popular Xbox One games</h1>
+          <h1 class="font-heading uppercase mb-1 text-white" v-if="(!keyword) && (platform_id==4)">Popular PC games</h1>
+          <h1 class="font-heading uppercase mb-1 text-white" v-if="(!keyword) && (platform_id==7)">Popular Nintendo Switch games</h1>
+          <h1 class="font-heading uppercase mb-1 text-white" v-if="(!keyword) && (platform_id==18)">Popular PS4 games</h1>
           <div v-for="genre in genres" :key="genre.id">
             <div v-if="genre.id == selected">
               <h1 class="font-heading uppercase mb-1 text-white" v-if="(!keyword) && (!platform_id) && (selected)">{{ genre.name }} games</h1>
+              <h1 class="font-heading uppercase mb-1 text-white" v-if="(keyword) && (!platform_id) && (selected)">{{ genre.name }} & {{ keyword }} games</h1>
             </div>
           </div>
         </div>
         <div>
-          <div class="game-container flex flex-wrap">
-            <nuxt-link :to="'/games/' + game.id" v-for="game in games" :key="game.id" class="w-full md:w-1/5 py-3 px-3">
+          <div class="game-container flex flex-wrap content-center">
+            <nuxt-link :to="'/games/' + game.id" v-for="game in games" :key="game.id" class="w-full md:w-1/5 py-1 px-3">
               <div class="text-white hover:text-gray-600">
-                <img thumbnail fluid :src="game.background_image" alt="cover" class="md:h-20 w-full">
-                <div class="font-semibold text-base overflow-hidden whitespace-no-wrap overflow-dots">{{ game.name }}</div>
+                <img thumbnail fluid :src="game.background_image" alt="cover" class="md:h-20 md:w-full">
+                <div class="font-semibold text-base overflow-hidden whitespace-no-wrap overflow-dots md:w-full">{{ game.name }}</div>
               </div>
             </nuxt-link>
           </div>
@@ -98,12 +102,11 @@
 
 <script>
 import axios from 'axios'
-import VueMaterial from 'vue-material'
-import 'vue-material/dist/theme/default-dark.css'
+
 
 export default {
   components: {
-    VueMaterial,
+
   },
 
   computed: {
@@ -124,9 +127,9 @@ export default {
     limite: null, // limite de items
     platform_id: null, // id de plataformas
     platform_name: null, // nombre de la plataforma
-    BToggle: true,
+    BToggle: true, // boton para celulares
     selected: null, 
-    genres: [],
+    genres: [], // listado de generos
     }),
 
   // Esto es para que cuando se cargue la pagina, automatico le lleguen datos.
@@ -159,7 +162,7 @@ export default {
     },
     toggle: function(){
       this.BToggle = !this.BToggle
-  }
+    }
   },
 
   watch: { // Esto es para que cuando cambie el valor de keyword, se busque automaticamente
