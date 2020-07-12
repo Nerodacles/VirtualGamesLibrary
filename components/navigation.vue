@@ -56,8 +56,7 @@ export default {
     },
     Logout(){
       VueCookies.remove('Admin');
-      this.cookie-=1;
-      location=("/");
+      location=("/Admins");
     }
 
   }
