@@ -71,17 +71,17 @@
         <input class="appearance-none bg-transparent border-none w-full text-white mr-3 py-1 px-2 leading-tight focus:outline-none" v-model="keyword" id="search" placeholder="Search">
       </div>
       <div class="py-2 px-2 h-full">
-        <div>
-          <h1 class="font-heading uppercase mb-1 text-white" v-if="(!keyword) && (!platform_id) && (!selected)">Popular Games</h1>  
-          <h1 class="font-heading uppercase mb-1 text-white" v-if="(keyword) && (!platform_id) && (!selected)">Search game {{ keyword }}</h1>
-          <h1 class="font-heading uppercase mb-1 text-white" v-if="(!keyword) && (platform_id==1)">Popular Xbox One games</h1>
-          <h1 class="font-heading uppercase mb-1 text-white" v-if="(!keyword) && (platform_id==4)">Popular PC games</h1>
-          <h1 class="font-heading uppercase mb-1 text-white" v-if="(!keyword) && (platform_id==7)">Popular Nintendo Switch games</h1>
-          <h1 class="font-heading uppercase mb-1 text-white" v-if="(!keyword) && (platform_id==18)">Popular PS4 games</h1>
+        <div class="font-heading uppercase mb-1 text-white">
+          <h1 v-if="(!keyword) && (!platform_id) && (!selected)">Popular Games</h1>
+          <h1 v-if="(keyword) && (!platform_id) && (!selected)">Search game {{ keyword }}</h1>
+          <h1 v-if="(!keyword) && (platform_id==1)">Popular Xbox One games</h1>
+          <h1 v-if="(!keyword) && (platform_id==4)">Popular PC games</h1>
+          <h1 v-if="(!keyword) && (platform_id==7)">Popular Nintendo Switch games</h1>
+          <h1 v-if="(!keyword) && (platform_id==18)">Popular PS4 games</h1>
           <div v-for="genre in genres" :key="genre.id">
             <div v-if="genre.id == selected">
-              <h1 class="font-heading uppercase mb-1 text-white" v-if="(!keyword) && (!platform_id) && (selected)">{{ genre.name }} games</h1>
-              <h1 class="font-heading uppercase mb-1 text-white" v-if="(keyword) && (!platform_id) && (selected)">{{ genre.name }} & {{ keyword }} games</h1>
+              <h1 v-if="(!keyword) && (!platform_id) && (selected)">{{ genre.name }} games</h1>
+              <h1 v-if="(keyword) && (!platform_id) && (selected)">{{ genre.name }} & {{ keyword }} games</h1>
             </div>
           </div>
         </div>
@@ -105,10 +105,6 @@ import axios from 'axios'
 
 
 export default {
-  components: {
-
-  },
-
   computed: {
     getPlatforms() {
       return axios(`https://rawg-video-games-database.p.rapidapi.com/platforms?ordering=id`)
