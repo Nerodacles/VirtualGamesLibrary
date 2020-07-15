@@ -58,8 +58,6 @@ export default {
       VueCookies.remove('Admin');
       location=("/Admins");
     }
-
   }
-  
 }
 </script>
