@@ -1,6 +1,6 @@
 <template>
     <modal name="coño">
-        <div class="bg-white  shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col text-black " style=" border: 10px solid white; margin-top: 140px; background-image: url('https://cdn.discordapp.com/attachments/395726111809470467/731720421795168346/Untitled_5_1.jpg');">
+        <div class="bg-white  shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col text-black " style=" border: 10px solid white; margin-top: 140px;background-color: Black;">
             <div class="mb-4 justify-between">
                 <img
                 style="float: right;"
@@ -27,12 +27,19 @@
 </template>
 
 <script>
+
+
     import VueCookies from 'vue-cookies'
+    
 
     export default {
         name: "Login",
         data() {
             return {
+                allData:'',
+                myModel:false,
+                actionButton:'Insert',
+                dynamicTitle:'Add Data',
                 input: {
                     keya: null,
                     username: "",
@@ -43,7 +50,8 @@
         methods: {
             login() {
                 if(this.input.username != "" && this.input.password != "") {
-                    if(this.input.username == "admin" && this.input.password == "admin") {
+                    
+                    if(this.input.username == response.data.Username && this.input.password == "admin") {
                         this.$emit("authenticated", true)
                         VueCookies.set(this.input.username,this.key,this.input.password)
                         this.$router.replace({ name: "secure" })
@@ -54,6 +62,8 @@
             }
         }
     }
+
+
 </script>
 
 <style scoped>

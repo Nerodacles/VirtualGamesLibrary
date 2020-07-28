@@ -29,11 +29,8 @@
 import VueMaterial from 'vue-material'
 import 'vue-material/dist/theme/default-dark.css'
 import VueCookies from 'vue-cookies'
-import vuefire from 'vuefire'
-import firebase from 'firebase'
 
 
-let a =firebase.initializeApp.database();
   
 export default {
   components: {
