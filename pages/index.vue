@@ -103,7 +103,6 @@
 <script>
 import axios from 'axios'
 
-
 export default {
   computed: {
     getPlatforms() {
@@ -158,7 +157,7 @@ export default {
     },
     toggle: function(){
       this.BToggle = !this.BToggle
-    }
+    },
   },
 
   watch: { // Esto es para que cuando cambie el valor de keyword, se busque automaticamente

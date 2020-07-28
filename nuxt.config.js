@@ -65,6 +65,24 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
+    [
+      '@nuxtjs/firebase',
+      {
+        config: {
+          apiKey: 'AIzaSyCLHYy95bdLQRpvuLKJrSRyridfSsedRC4',
+          authDomain: 'videogamesusers.firebaseapp.com',
+          databaseURL: 'https://videogamesusers.firebaseio.com',
+          projectId: 'videogamesusers',
+          storageBucket: 'videogamesusers.appspot.com',
+          messagingSenderId: '635174532046',
+          appId: '1:635174532046:web:13e915dbfb1a538efa319f',
+          measurementId: 'G-T43FEWWK90'
+        },
+        services: {
+          auth: true // Just as example. Can be any other service.
+        }
+      }
+    ]
   ],
   /*
   ** Axios module configuration

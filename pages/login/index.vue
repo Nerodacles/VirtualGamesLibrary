@@ -14,6 +14,7 @@
                 <label class="block text-white text-sm font-bold mb-2" for="password"> Password </label>
                 <input class="shadow appearance-none border border-red rounded w-50 py-2 px-3 text-grey-darker mb-3"  style="width: 500px;" id="password" v-model="input.password" type="password" placeholder="******************">
                 <p class="text-white text-xs italic">Please choose a password.</p>
+                <input type="button" value="test" @click="created">
             </div>
 
             <div class="flex items-center ">
@@ -27,19 +28,13 @@
 </template>
 
 <script>
-
-
     import VueCookies from 'vue-cookies'
-    
+    import axios from 'axios'
 
     export default {
         name: "Login",
         data() {
             return {
-                allData:'',
-                myModel:false,
-                actionButton:'Insert',
-                dynamicTitle:'Add Data',
                 input: {
                     keya: null,
                     username: "",
@@ -59,7 +54,12 @@
                         
                     } else { alert("The username and / or password is incorrect") }
                 } else { alert("A username and password must be present") }
-            }
+            },
+            // fetchAllData: function(){
+            //     axios.post('./conexion/coneccion.php', { action:'fetchall' }).then(function(response) {
+            //         application.allData = response.data; }); 
+            // },
+            // created:function(){ this.fetchAllData(); }
         }
     }
 
