@@ -14,7 +14,6 @@
                 <label class="block text-white text-sm font-bold mb-2" for="password"> Password </label>
                 <input class="shadow appearance-none border border-red rounded w-50 py-2 px-3 text-grey-darker mb-3"  style="width: 500px;" id="password" v-model="input.password" type="password" placeholder="******************">
                 <p class="text-white text-xs italic">Please choose a password.</p>
-                <input type="button" value="test" @click="created">
             </div>
 
             <div class="flex items-center ">
@@ -31,37 +30,25 @@
     import VueCookies from 'vue-cookies'
     import axios from 'axios'
 
+    import firebase from '~/components/firebase.js'
+
     export default {
         name: "Login",
         data() {
             return {
                 input: {
-                    keya: null,
-                    username: "",
-                    password: ""
+                    username: "admin@admin.com",
+                    password: "123456"
                 }
             }
         },
         methods: {
             login() {
-                if(this.input.username != "" && this.input.password != "") {
-                    
-                    if(this.input.username == response.data.Username && this.input.password == "admin") {
-                        this.$emit("authenticated", true)
-                        VueCookies.set(this.input.username,this.key,this.input.password)
-                        this.$router.replace({ name: "secure" })
-                        location="/"
-                        
-                    } else { alert("The username and / or password is incorrect") }
-                } else { alert("A username and password must be present") }
+                firebase.auth().signInWithEmailAndPassword(this.input.username, this.input.password)
+                .then((user) => location="/",(error) => alert("The username and / or password is incorrect"))
+                } 
             },
-            // fetchAllData: function(){
-            //     axios.post('./conexion/coneccion.php', { action:'fetchall' }).then(function(response) {
-            //         application.allData = response.data; }); 
-            // },
-            // created:function(){ this.fetchAllData(); }
         }
-    }
 
 
 </script>
