@@ -79,7 +79,15 @@ export default {
     //       measurementId: 'G-T43FEWWK90'
     //     },
     //     services: {
+    //       auth: true,
+    //       firestore: true,
+    //       functions: true,
+    //       storage: true,
     //       realtimeDb: true,
+    //       messaging: true,
+    //       performance: true,
+    //       analytics: true,
+    //       remoteConfig: true  
     //     }
     //   }
     // ]
