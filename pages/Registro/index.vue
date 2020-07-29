@@ -1,6 +1,6 @@
 <template>
     <modal name="coño">
-<div class="bg-white  shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col text-black "   style=" border: 10px solid white; margin-top: 50px; background-color: Black;">
+<div class="bg-white  shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col text-black "   style=" border: 10px solid white; margin-top: 90px; background-color: Black;">
     <div class="mb-4 justify-between">
      <img
             style="float: right;"
@@ -9,15 +9,15 @@
             width="125"
             height="125"
         />
-        <label class="block text-white text-sm font-bold mb-2" for="username">
-        Username
+       <label class="block text-white text-sm font-bold mb-2" for="username">
+        E-mail
       </label>
-      <input class="shadow appearance-none border rounded w-50 py-2 px-3 text-grey-darker" style="width: 500px;" id="username"  type="text" placeholder="Username">
-
+      <input class="shadow appearance-none border rounded w-50 py-2 px-3 text-grey-darker" style="width: 500px;" id="E-mail"   v-model="input.username" type="text" placeholder="E-mail">
+      
       <label class="block text-white text-sm font-bold mb-2" for="password">
         Password
       </label>
-      <input class="shadow appearance-none border border-red rounded w-50 py-2 px-3 text-grey-darker mb-3"  style="width: 500px;" id="password"  type="password" placeholder="******************">
+      <input class="shadow appearance-none border border-red rounded w-50 py-2 px-3 text-grey-darker mb-3"  style="width: 500px;" id="password"  v-model="input.password"  type="password" placeholder="******************">
       
       <label class="block text-white text-sm font-bold mb-2" for="password">
         Password again
@@ -25,17 +25,14 @@
       <input class="shadow appearance-none border border-red rounded w-50 py-2 px-3 text-grey-darker mb-3"  style="width: 500px;" id="Confirmation"  type="password" placeholder="******************">
       
 
-      <label class="block text-white text-sm font-bold mb-2" for="username">
-        E-mail
-      </label>
-      <input class="shadow appearance-none border rounded w-50 py-2 px-3 text-grey-darker" style="width: 500px;" id="E-mail"  type="text" placeholder="E-mail">
+      
     </div>
       <div class="flex items-center ">          
      <input type="checkbox" id="accept" name="check" value="Accept">
       <label Class="text-white" for="check" >Accept our terms</label><br>
     </div>
     <div class="flex items-center ">
-      <button class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded"  type="button"  style=" border: 5px solid #CCCCCC;">
+      <button class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded" v-on:click="Register()"  type="button"  style=" border: 5px solid #CCCCCC;">
         Register
       </button>
     <label class="block text-white text-sm font-bold mb-0" style="margin-left:10px;" for="password">
@@ -53,5 +50,30 @@
 </template>
 
 <script>
+   import VueCookies from 'vue-cookies'
+    import axios from 'axios'
 
+    import firebase from '~/components/firebase.js'
+
+    export default {
+        name: "Login",
+        data() {
+            return {
+                input: {
+                    username: "",
+                    password: ""
+                }
+            }
+        },
+         methods: {
+            Register() {
+                firebase.auth().createUserWithEmailAndPassword(this.input.username, this.input.password).catch(function(error) {
+                  // Handle Errors here.
+                  var errorCode = error.code;
+                  var errorMessage = error.message;
+                });
+                location="/"
+                } 
+            },
+    }
 </script>

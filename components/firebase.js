@@ -12,4 +12,5 @@ const config = {
     measurementId: "G-T43FEWWK90"
 };
 
+
 export default !firebase.apps.length ? firebase.initializeApp(config) : firebase.app();

@@ -19,7 +19,7 @@
       </div>
       <div>
         <a href="/login" class="" v-if="this.cookie==0"><p class="inline-block lg:-ml-20 text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-gray-500 hover:bg-white mt-4 lg:mt-0">Login</p></a>
-        <a @click="Logout()" class="" v-if="this.cookie>=1"><p class="inline-block lg:-ml-20 text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-gray-500 hover:bg-white mt-4 lg:mt-0">Logout</p></a>
+        <a @click="Logout()" class="" v-if='this.cookie==1'><p class="inline-block lg:-ml-20 text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-gray-500 hover:bg-white mt-4 lg:mt-0">Logout</p></a>
       </div>
     </div>
   </nav>
@@ -29,9 +29,9 @@
 import VueMaterial from 'vue-material'
 import 'vue-material/dist/theme/default-dark.css'
 import VueCookies from 'vue-cookies'
+import firebase from '~/components/firebase.js'
 
 
-  
 export default {
   components: {
     VueMaterial,
@@ -41,14 +41,16 @@ export default {
     BToggle: true,
     cookie: 0
   }),
-  async AsyncData(){
-      alert("hola");
-      if(VueCookies.isKey('Admin')==true) {
-        this.cookie=1;
-      }
-      else if (VueCookies.isKey('Admin')==false){
-        this.cookie=0;
-      }
+  mounted(){
+    
+    if( firebase.auth().currentUser!=null){
+      console.log(firebase.auth().currentUser)
+      this.cookie=1
+    }
+    else if( firebase.auth().currentUser==null){
+      console.log(firebase.auth().currentUser)
+      this.cookie=0
+    } return(this.cookie)
     },
 
   methods: {
@@ -56,8 +58,11 @@ export default {
       this.BToggle = !this.BToggle
     },
     Logout(){
-      VueCookies.remove('Admin');
-      location=("/Admins");
+      firebase.auth().signOut().then(function() {
+      }).catch(function(error) {
+      });
+      this.cookie=0;
+      location=("/");    
     }
   }
 }
