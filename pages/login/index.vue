@@ -44,8 +44,9 @@
         },
         methods: {
             login() {
+                
                 firebase.auth().signInWithEmailAndPassword(this.input.username, this.input.password)
-                .then((user) => location="/",(error) => alert("The username and / or password is incorrect"))
+                .then((user) => location="/" ,(error) => alert("The username and / or password is incorrect"))
                 } 
             },
         }

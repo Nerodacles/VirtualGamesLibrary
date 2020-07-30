@@ -68,7 +68,6 @@
          methods: {
             Register() {
                 firebase.auth().createUserWithEmailAndPassword(this.input.username, this.input.password).catch(function(error) {
-                  // Handle Errors here.
                   var errorCode = error.code;
                   var errorMessage = error.message;
                 });

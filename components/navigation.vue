@@ -18,8 +18,8 @@
         <a href="/about"><p class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-500">About</p></a>
       </div>
       <div>
-        <a href="/login" class="" v-if="this.cookie==0"><p class="inline-block lg:-ml-20 text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-gray-500 hover:bg-white mt-4 lg:mt-0">Login</p></a>
-        <a @click="Logout()" class="" v-if='this.cookie==1'><p class="inline-block lg:-ml-20 text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-gray-500 hover:bg-white mt-4 lg:mt-0">Logout</p></a>
+        <a href="/login" class="" v-if="this.h==null"><p class="inline-block lg:-ml-20 text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-gray-500 hover:bg-white mt-4 lg:mt-0">Login</p></a>
+        <a @click="Logout()" class="" v-if="this.h!=null"><p class="inline-block lg:-ml-20 text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-gray-500 hover:bg-white mt-4 lg:mt-0">Logout</p></a>
       </div>
     </div>
   </nav>
@@ -31,7 +31,6 @@ import 'vue-material/dist/theme/default-dark.css'
 import VueCookies from 'vue-cookies'
 import firebase from '~/components/firebase.js'
 
-
 export default {
   components: {
     VueMaterial,
@@ -39,24 +38,27 @@ export default {
 
   data: () => ({
     BToggle: true,
-    cookie: 0
+    a: firebase.auth().onAuthStateChanged,
+    h: firebase.auth().currentUser
   }),
   mounted(){
-    
-    if( firebase.auth().currentUser!=null){
+    setTimeout(function(){
+    firebase.auth().onAuthStateChanged(function(user) {
+    console.log(firebase.auth().onAuthStateChanged(function(user) {firebase.auth().currentUser}))
+    if (user) {
       console.log(firebase.auth().currentUser)
-      this.cookie=1
+    } else {
+
     }
-    else if( firebase.auth().currentUser==null){
-      console.log(firebase.auth().currentUser)
-      this.cookie=0
-    } return(this.cookie)
+    });
+    }, 4000);
     },
 
   methods: {
     toggle: function(){
       this.BToggle = !this.BToggle
     },
+    
     Logout(){
       firebase.auth().signOut().then(function() {
       }).catch(function(error) {
