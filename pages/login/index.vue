@@ -47,6 +47,7 @@
                 
                 firebase.auth().signInWithEmailAndPassword(this.input.username, this.input.password)
                 .then((user) => location="/" ,(error) => alert("The username and / or password is incorrect"))
+                VueCookies.set(this.input.username)
                 } 
             },
         }

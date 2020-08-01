@@ -20,6 +20,7 @@
       <div>
         <a href="/login" class="" v-if="this.h==null"><p class="inline-block lg:-ml-20 text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-gray-500 hover:bg-white mt-4 lg:mt-0">Login</p></a>
         <a @click="Logout()" class="" v-if="this.h!=null"><p class="inline-block lg:-ml-20 text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-gray-500 hover:bg-white mt-4 lg:mt-0">Logout</p></a>
+      
       </div>
     </div>
   </nav>
@@ -38,17 +39,23 @@ export default {
 
   data: () => ({
     BToggle: true,
-    a: firebase.auth().onAuthStateChanged,
     h: firebase.auth().currentUser
   }),
   mounted(){
     setTimeout(function(){
     firebase.auth().onAuthStateChanged(function(user) {
-    console.log(firebase.auth().onAuthStateChanged(function(user) {firebase.auth().currentUser}))
+    //con este codigo dentro del log se agrega informacion a la base de datos y lo de .uid es para sacar el ID del usuario
+    console.log(firebase.database().ref('comentarios').set({
+      ID_Comentario:'1',
+      Asunto: 'Ejemplo',
+      Comentario:'Ejemplo para juan para probar 7u7',
+      Fecha: '31/7/2020',
+      ID_Usuario: firebase.auth().currentUser.uid
+    }))
+    console.log(firebase.database().ref('comentarios'))
     if (user) {
       console.log(firebase.auth().currentUser)
     } else {
-
     }
     });
     }, 4000);
@@ -63,6 +70,7 @@ export default {
       firebase.auth().signOut().then(function() {
       }).catch(function(error) {
       });
+      VueCookies.remove(firebase.auth().currentUser.email)
       this.cookie=0;
       location=("/");    
     }
