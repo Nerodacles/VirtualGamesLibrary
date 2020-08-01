@@ -44,14 +44,14 @@ export default {
   mounted(){
     setTimeout(function(){
     firebase.auth().onAuthStateChanged(function(user) {
-    //con este codigo dentro del log se agrega informacion a la base de datos y lo de .uid es para sacar el ID del usuario
-    console.log(firebase.database().ref('comentarios').set({
-      ID_Comentario:'1',
-      Asunto: 'Ejemplo',
-      Comentario:'Ejemplo para juan para probar 7u7',
-      Fecha: '31/7/2020',
-      ID_Usuario: firebase.auth().currentUser.uid
-    }))
+    firebase.database().ref('comentarios/'+2).set({
+      Id_Comentario:1,
+      Asunto: 'Ejemplo 2',
+      Comentario: 'Ejemplo para juan',
+      Fecha:'30/07/2020',
+      Id_Usuario:firebase.auth().currentUser.uid
+    })
+    firebase.database().ref('comentarios').child('Comentario').on('value', snap => console.log(snap.val()))
     console.log(firebase.database().ref('comentarios'))
     if (user) {
       console.log(firebase.auth().currentUser)
