@@ -84,21 +84,23 @@
                 <textarea placeholder="Add a comment" v-model="comm.coment" class="text-black rounded leading-normal resize-none w-full h-15 py-2 px-3"></textarea>
                 <div class="mt-3">
                   <button class="border border-blue-300 bg-green-600 text-white hover:bg-green-400 hover:text-black py-2 px-4 rounded tracking-wide mr-1" v-on:click="AgregarComentarios()">Save</button>
-                  <button class="border border-blue-300 bg-red-600 text-white hover:bg-red-400 hover:text-black py-2 px-4 rounded tracking-wide ml-1">Cancel</button>
+                  <button class="border border-blue-300 bg-red-600 text-white hover:bg-red-400 hover:text-black py-2 px-4 rounded tracking-wide ml-1" v-on:click="Cancelar()">Cancel</button>
                 </div>
               </div>
             </div>
           </div>
-          <div class="bg-juanma rounded shadow-sm p-8" v-for="comments in comentarios" :key="comments.id_user">
+          <div class="flex flex-wrap bg-juanma rounded shadow-sm p-5" v-for="comments in comentarios" :key="comments.id_user" v-if="comments.id_game == games.id">
             <div>
-              <p class="text-xl font-semibold">{{comments.asunto}}</p>
-            </div>
-            <div class="flex justify-between mb-1">
-              <p class="text-white leading-normal text-base">{{comments.comentario}}</p>
-              <button v-if="editable" @click="state = 'editing'" class="ml-2 mt-1 mb-auto text-blue-600 hover:text-blue-900 text-sm">Edit</button>
-            </div>
-            <div class="text-grey-dark leading-normal text-sm">
-              <p>{{comments.author.id_user}} <span class="mx-1 text-xs">&bull;</span> {{comments.fecha}}</p>
+              <div>
+                <p class="text-xl font-semibold">{{comments.asunto}}</p>
+              </div>
+              <div class="flex justify-between mb-1">
+                <p class="text-white leading-normal text-base">{{comments.comentario}}</p>
+                <button v-if="editable" @click="state = 'editing'" class="ml-2 mt-1 mb-auto text-blue-600 hover:text-blue-900 text-sm">Edit</button>
+              </div>
+              <div class="text-grey-dark leading-normal text-xs">
+                <p>{{comments.author.id_user}} <span class="mx-1 text-xs">&bull;</span> {{comments.fecha}}</p>
+              </div>
             </div>
           </div>
         </div>
@@ -142,10 +144,9 @@ export default {
       var games_id = this.games.id
       var com_asunto = this.comm.asunto
       var com_comentario = this.comm.coment
-
       if ((this.comm.asunto != null && this.comm.asunto != "") && (this.comm.coment != null && this.comm.coment != "")){
         firebase.auth().onAuthStateChanged(function(user) {
-          firebase.database().ref('comentarios/'+1).set({
+          firebase.database().ref('comentarios/'+indice).set({
             id: indice,
             id_game: games_id,
             edited: false,
@@ -155,7 +156,6 @@ export default {
             author: {
               id_user: firebase.auth().currentUser.email
             }
-            
           })
         })
       }
@@ -164,30 +164,16 @@ export default {
     },
 
     startEditing() {
-        this.state = 'editing';
+      this.state = 'editing';
     },
     stopEditing() {
-        this.state = 'default';
-        this.data.body = '';
+      this.state = 'default';
+      this.data.body = '';
     },
 
-    saveComment() {
-      firebase.auth().onAuthStateChanged(function(user) {
-        let newComment = {
-          id: indice,
-          id_game: games_id,
-          edited: false,
-          asunto: com_asunto,
-          comentario: com_comentario,
-          fecha: new Date().toLocaleString(),
-          author: {
-            id_user: firebase.auth().currentUser.email
-          } 
-        }
-      })
-
-      firebase.database().ref('comentarios/'+1).set(this.comments.push(newComment))
-      this.stopEditing();
+    Cancelar(){
+      this.comm.asunto = null
+      this.comm.coment = null
     },
 
     refrescarDatabase(){
