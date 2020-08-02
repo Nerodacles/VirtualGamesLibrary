@@ -71,17 +71,20 @@
           <Media :kind="'video'" :controls="true" :src="games.clip.clip"> </Media>
         </div>
 
-        <div class="py-10">
+        <div class="py-10 px-2">
           <div>
             <div>
-              <div class="rounded bg-gray-900 shadow-sm p-8 mb-4">
+              <div class="rounded bg-juanma shadow-sm p-8 mb-4">
                 <div class="mb-4">
-                  <h2 class="text-black">Comments</h2>
+                  <h1>Comments</h1>
                 </div>
-                <textarea placeholder="Add a comment" class="bg-grey-lighter rounded leading-normal resize-none w-full h-10 py-2 px-3"></textarea>
+                <div class="py-2">
+                  <input type="text" v-model="comm.asunto" placeholder="Add a title" class="text-black px-5 rounded leading-normal py-1">
+                </div>
+                <textarea placeholder="Add a comment" v-model="comm.coment" class="text-black rounded leading-normal resize-none w-full h-15 py-2 px-3"></textarea>
                 <div class="mt-3">
-                  <button class="border border-blue bg-blue text-black hover:bg-blue-dark py-2 px-4 rounded tracking-wide mr-1" @click="saveComment">Save</button>
-                  <button class="border border-grey-darker text-black hover:bg-grey-dark hover:text-grey py-2 px-4 rounded tracking-wide ml-1">Cancel</button>
+                  <button class="border border-blue-300 bg-green-600 text-white hover:bg-green-400 hover:text-black py-2 px-4 rounded tracking-wide mr-1" v-on:click="AgregarComentarios()">Save</button>
+                  <button class="border border-blue-300 bg-red-600 text-white hover:bg-red-400 hover:text-black py-2 px-4 rounded tracking-wide ml-1">Cancel</button>
                 </div>
               </div>
             </div>
@@ -99,6 +102,7 @@
 import axios from 'axios'
 import Media from '@dongido/vue-viaudio'
 import firebase from '~/components/firebase.js'
+
 import 'vue-material/dist/theme/default-dark.css'
 
 export default {
@@ -107,7 +111,7 @@ export default {
   },
 
   // aqui se guardaran las screenshots en un array
-  data: () => ({ screen: [], comentarios: [], comm:{ asunto: null, coment: null, user: null, date: null} }),
+  data: () => ({ screen: [], comentarios: [], comm: { asunto: null, coment: null, date: '13/11/2000'} }),
 
   async asyncData({ params }) {
     const games = await axios.get(`https://rawg-video-games-database.p.rapidapi.com/games/${params.id}`);
@@ -121,6 +125,22 @@ export default {
     getDescription() { return this.games.description},
     getRedditUrl() { return this.games.reddit_url },
     GetIndex() { return this.comentarios.length }
+  },
+
+  methods:{
+    AgregarComentarios(){
+
+      console.log(this.GetIndex, this.games.id, this.comm.asunto, this.comm.coment, this.comm.date, firebase.auth().currentUser.uid)
+      // firebase.auth().onAuthStateChanged(function(user) {
+      //   firebase.database().ref('comentarios/'+this.GetIndex).set({
+      //     id_game: games.id,
+      //     asunto: this.comm.asunto,
+      //     comentario: this.comm.coment,
+      //     fecha: this.comm.date,
+      //     id_user: firebase.auth().currentUser.uid
+      //   })
+      // })
+    }
   },
 
   mounted(){
@@ -153,21 +173,7 @@ export default {
   -webkit-text-fill-color: transparent;
 }
 
-body{margin-top:20px;}
+.bg-juanma {
+  background-color: rgb(66, 66, 66)}
 
-.comment-wrapper .panel-body {
-    max-height:650px;
-    overflow:auto;
-}
-
-.comment-wrapper .media-list .media img {
-    width:64px;
-    height:64px;
-    border:2px solid #e5e7e8;
-}
-
-.comment-wrapper .media-list .media {
-    border-bottom:1px dashed #efefef;
-    margin-bottom:25px;
-}
 </style>

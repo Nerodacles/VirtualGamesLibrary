@@ -15,12 +15,11 @@
     <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto" v-if="BToggle">
       <div class="text-sm lg:flex-grow">
         <a href="/"><p class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-500 mr-4">Home</p></a>
-        <a href="/admins"><p class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-500">About</p></a>
+        <a href="/about"><p class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-500">About</p></a>
       </div>
       <div>
         <a href="/login" class="" v-if="this.h==null"><p class="inline-block lg:-ml-20 text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-gray-500 hover:bg-white mt-4 lg:mt-0">Login</p></a>
         <a @click="Logout()" class="" v-if="this.h!=null"><p class="inline-block lg:-ml-20 text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-gray-500 hover:bg-white mt-4 lg:mt-0">Logout</p></a>
-      
       </div>
     </div>
   </nav>
@@ -57,12 +56,12 @@ export default {
       this.BToggle = !this.BToggle
     },
     
-    Logout(){
-      firebase.auth().signOut().then(function() { }).catch(function(error) { });
-      VueCookies.remove(firebase.auth().currentUser.email)
-      this.cookie=0;
-      location=("/");    
-    }
+  //   Logout(){
+  //     firebase.auth().signOut().then(function() { }).catch(function(error) { });
+  //     VueCookies.remove(firebase.auth().currentUser.email)
+  //     this.cookie=0;
+  //     location=("/");    
+  //   }
   }
 }
 </script>
