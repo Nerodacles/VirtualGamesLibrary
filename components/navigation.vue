@@ -15,7 +15,7 @@
     <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto" v-if="BToggle">
       <div class="text-sm lg:flex-grow">
         <a href="/"><p class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-500 mr-4">Home</p></a>
-        <a href="/about"><p class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-500">About</p></a>
+        <a href="/admins"><p class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-500">About</p></a>
       </div>
       <div>
         <a href="/login" class="" v-if="this.h==null"><p class="inline-block lg:-ml-20 text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-gray-500 hover:bg-white mt-4 lg:mt-0">Login</p></a>
@@ -31,6 +31,7 @@ import VueMaterial from 'vue-material'
 import 'vue-material/dist/theme/default-dark.css'
 import VueCookies from 'vue-cookies'
 import firebase from '~/components/firebase.js'
+import axios from 'axios'
 
 export default {
   components: {
@@ -39,26 +40,17 @@ export default {
 
   data: () => ({
     BToggle: true,
-    h: firebase.auth().currentUser
+    h: firebase.auth().currentUser,
   }),
   mounted(){
-    setTimeout(function(){
     firebase.auth().onAuthStateChanged(function(user) {
-    firebase.database().ref('comentarios/'+2).set({
-      Id_Comentario:1,
-      Asunto: 'Ejemplo 2',
-      Comentario: 'Ejemplo para juan',
-      Fecha:'30/07/2020',
-      Id_Usuario:firebase.auth().currentUser.uid
-    })
-    firebase.database().ref('comentarios').child('Comentario').on('value', snap => console.log(snap.val()))
-    console.log(firebase.database().ref('comentarios'))
+    // firebase.database().ref('comentarios').child('-MDg9R9GmasV7VhEqMtl').on('value', snap => console.log(snap.val()))
+    // console.log(firebase.database().ref('comentarios').child('-MDg9R9GmasV7VhEqMtl').on('value', snap => console.log(snap.val())))
     if (user) {
-      console.log(firebase.auth().currentUser)
+      // console.log(firebase.auth().currentUser)
     } else {
     }
     });
-    }, 4000);
     },
 
   methods: {
