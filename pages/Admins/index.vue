@@ -1,42 +1,48 @@
 <template>
-  <div style="backgroundImage: `url(~/assets/img/bg.jpg)`">
-    <span>Hola</span>
+  <div class="py-10 px-2">
+    <div class="flex flex-wrap bg-juanma rounded shadow-sm p-5" v-for="comments in comentarios" :key="comments.id_user">
+      <div>
+        <div>
+          <p class="text-xl font-semibold">{{comments.asunto}}</p>
+        </div>
+        <div class="flex justify-between mb-1">
+          <p class="text-white leading-normal text-base">{{comments.comentario}}</p>
+          <button v-if="editable" @click="state = 'editing'" class="ml-2 mt-1 mb-auto text-blue-600 hover:text-blue-900 text-sm">Edit</button>
+        </div>
+        <div class="text-grey-dark leading-normal text-xs">
+          <p>{{comments.author.id_user}} <span class="mx-1 text-xs">&bull;</span> {{comments.fecha}}</p>
+        </div>
+      </div>
+    </div>
   </div>
-  <!-- <form class="form-horizontal" style="background-image: url('https://i.imgur.com/sMPnsa5.jpg'); background-repeat: no-repeat; background-attachment: fixed; background-size: 100% 100%;"> -->
 </template>
 
 <script>
-import VueMaterial from 'vue-material'
-import 'vue-material/dist/theme/default-dark.css'
-import VueCookies from 'vue-cookies'
 import firebase from '~/components/firebase.js'
 import axios from 'axios'
 
 export default {
-  components: {
-    VueMaterial,
-  },
-
   data: () => ({
-    comentarios:'',
-    indiceComent: null,
+    comentarios: [],
+    state: 'default'
   }),
   methods: {
-    comentar(){
-        const messageRef = firebase.database().ref('comentarios')
-        axios(messageRef.toString() + '.json').then(res => { this.comentarios = res.data, this.indiceComent = this.comentarios.length })
-        var a=this.indiceComent
-        console.log(a)
-        firebase.auth().onAuthStateChanged(function(user) {
-        firebase.database().ref('comentarios/'+2).set({
-          id_coment: a,
-          asunto: 'Ejemplo 4',
-          comentario: 'Ejemplo 2',
-          fecha:'31/07/2020',
-          id_user:firebase.auth().currentUser.uid
-    })
-    });
-  }
+    
+  },
+
+  mounted(){
+    const messageRef = firebase.database().ref('comentarios')
+    axios(messageRef.toString() + '.json').then(res => { this.comentarios = res.data })
   }
 }
 </script>
+
+<style>
+.bg-juanma {
+  background-color: rgb(66, 66, 66)
+}
+
+.text-juanma{
+  color:rgb(66, 66, 66)
+}
+</style>
