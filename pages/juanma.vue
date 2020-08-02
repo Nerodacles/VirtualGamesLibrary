@@ -12,8 +12,7 @@ export default {
     }),
 
     computed: {
-    GetIndex() { return this.comentarios.length },
-    
+    GetIndex() { return this.comentarios.length }
     },
 
     mounted(){
