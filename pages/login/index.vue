@@ -2,12 +2,7 @@
     <modal name="coño">
         <div class="bg-white  shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col text-black " style=" border: 10px solid white; margin-top: 140px;background-color: Black;">
             <div class="mb-4 justify-between">
-                <img
-                style="float: right;"
-                src="~/static/logo.png"
-                alt=""
-                width="125"
-                height="125" />
+                <img style="float: right;" src="~/static/logo.png" alt="" width="125" height="125" />
         
                 <label class="block text-white text-sm font-bold mb-2" for="username"> Username</label>
                 <input class="shadow appearance-none border rounded w-50 py-2 px-3 text-grey-darker" style="width: 500px;" id="username" v-model="input.username" type="text" placeholder="Username">
@@ -28,8 +23,6 @@
 
 <script>
     import VueCookies from 'vue-cookies'
-    import axios from 'axios'
-
     import firebase from '~/components/firebase.js'
 
     export default {
@@ -44,15 +37,12 @@
         },
         methods: {
             login() {
-                
                 firebase.auth().signInWithEmailAndPassword(this.input.username, this.input.password)
                 .then((user) => location="/" ,(error) => alert("The username and / or password is incorrect"))
                 VueCookies.set(this.input.username)
-                } 
-            },
-        }
-
-
+            } 
+        },
+    }
 </script>
 
 <style scoped>

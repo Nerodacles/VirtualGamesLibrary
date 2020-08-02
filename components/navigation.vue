@@ -31,7 +31,6 @@ import VueMaterial from 'vue-material'
 import 'vue-material/dist/theme/default-dark.css'
 import VueCookies from 'vue-cookies'
 import firebase from '~/components/firebase.js'
-import axios from 'axios'
 
 export default {
   components: {
@@ -43,14 +42,14 @@ export default {
     h: firebase.auth().currentUser,
   }),
   mounted(){
-    firebase.auth().onAuthStateChanged(function(user) {
-    // firebase.database().ref('comentarios').child('-MDg9R9GmasV7VhEqMtl').on('value', snap => console.log(snap.val()))
-    // console.log(firebase.database().ref('comentarios').child('-MDg9R9GmasV7VhEqMtl').on('value', snap => console.log(snap.val())))
-    if (user) {
+    // firebase.auth().onAuthStateChanged(function(user) {
+      // firebase.database().ref('comentarios').child('-MDg9R9GmasV7VhEqMtl').on('value', snap => console.log(snap.val()))
+      // console.log(firebase.database().ref('comentarios').child('-MDg9R9GmasV7VhEqMtl').on('value', snap => console.log(snap.val())))
+      // if (user) {
       // console.log(firebase.auth().currentUser)
-    } else {
-    }
-    });
+      // } else {
+    // }
+    // });
     },
 
   methods: {
@@ -59,9 +58,7 @@ export default {
     },
     
     Logout(){
-      firebase.auth().signOut().then(function() {
-      }).catch(function(error) {
-      });
+      firebase.auth().signOut().then(function() { }).catch(function(error) { });
       VueCookies.remove(firebase.auth().currentUser.email)
       this.cookie=0;
       location=("/");    

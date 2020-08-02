@@ -102,7 +102,6 @@
 
 <script>
 import axios from 'axios'
-import firebase from '~/components/firebase.js'
 
 export default {
   computed: {
@@ -137,7 +136,6 @@ export default {
     
   methods: {
     searchGames() {
-      firebase.auth().onAuthStateChanged(function(user) {});
       axios.get("https://rawg-video-games-database.p.rapidapi.com/games?ordering=-relevance&discover=true",  // Se empleza con la llamada a la api para buscar los juegos.
         { params: { search: this.keyword, platforms: this.platform_id, genres: this.selected } })
         .then(res => { this.games = res.data.results } )

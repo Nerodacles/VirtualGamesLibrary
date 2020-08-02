@@ -61,18 +61,34 @@
         <span v-html="getDescription" class=""></span>
         <br>
         <p class="font-semibold">Screenshots:</p>
-        <div class="flex flex-wrap -mx-4">
+        <div class="flex flex-wrap -mx-4 justify-center">
           <a v-for="screenshot in screen" :key="screenshot.id" class="w-full md:w-1/4 px-4 mb-12 no-underline">
             <img :src="screenshot.image" alt="screenshot">
           </a>
         </div>
         <p class="font-semibold" v-if="games.clip != null">Trailer:</p>
-        <div class="flex flex-wrap" v-if="games.clip != null">
-          <Media 
-            :kind="'video'"
-            :controls="true"
-            :src="games.clip.clip">
-          </Media>
+        <div class="flex flex-wrap items-center justify-center" v-if="games.clip != null">
+          <Media :kind="'video'" :controls="true" :src="games.clip.clip"> </Media>
+        </div>
+
+        <div class="py-10">
+          <div>
+            <div>
+              <div class="rounded bg-gray-900 shadow-sm p-8 mb-4">
+                <div class="mb-4">
+                  <h2 class="text-black">Comments</h2>
+                </div>
+                <textarea placeholder="Add a comment" class="bg-grey-lighter rounded leading-normal resize-none w-full h-10 py-2 px-3"></textarea>
+                <div class="mt-3">
+                  <button class="border border-blue bg-blue text-black hover:bg-blue-dark py-2 px-4 rounded tracking-wide mr-1" @click="saveComment">Save</button>
+                  <button class="border border-grey-darker text-black hover:bg-grey-dark hover:text-grey py-2 px-4 rounded tracking-wide ml-1">Cancel</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="container" v-for="comments in comentarios" :key="comments.id_user">
+            
+          </div>
         </div>
       </div>
     </div>
@@ -80,10 +96,9 @@
 </template>
 
 <script>
-import axios from "axios"
+import axios from 'axios'
 import Media from '@dongido/vue-viaudio'
-
-
+import firebase from '~/components/firebase.js'
 import 'vue-material/dist/theme/default-dark.css'
 
 export default {
@@ -92,7 +107,7 @@ export default {
   },
 
   // aqui se guardaran las screenshots en un array
-  data: () => ({ screen: [] }),
+  data: () => ({ screen: [], comentarios: [], comm:{ asunto: null, coment: null, user: null, date: null} }),
 
   async asyncData({ params }) {
     const games = await axios.get(`https://rawg-video-games-database.p.rapidapi.com/games/${params.id}`);
@@ -104,9 +119,14 @@ export default {
     getOfficialWebsite() { return this.games.website },
     backgroundImage() { return this.games.background_image_additional },
     getDescription() { return this.games.description},
-    getRedditUrl() { return this.games.reddit_url }
+    getRedditUrl() { return this.games.reddit_url },
+    GetIndex() { return this.comentarios.length }
   },
 
+  mounted(){
+    const messageRef = firebase.database().ref('comentarios')
+    axios(messageRef.toString() + '.json').then(res => { this.comentarios = res.data })
+  },
   head() { return { title: this.games.name + " | Video Games Library" } }
 }
 </script>
@@ -131,5 +151,23 @@ export default {
   background: linear-gradient(90deg, var(--star-background) var(--percent), var(--star-color) var(--percent));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+body{margin-top:20px;}
+
+.comment-wrapper .panel-body {
+    max-height:650px;
+    overflow:auto;
+}
+
+.comment-wrapper .media-list .media img {
+    width:64px;
+    height:64px;
+    border:2px solid #e5e7e8;
+}
+
+.comment-wrapper .media-list .media {
+    border-bottom:1px dashed #efefef;
+    margin-bottom:25px;
 }
 </style>
