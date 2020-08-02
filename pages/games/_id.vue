@@ -89,8 +89,17 @@
               </div>
             </div>
           </div>
-          <div class="container" v-for="comments in comentarios" :key="comments.id_user">
-            
+          <div class="bg-juanma rounded shadow-sm p-8" v-for="comments in comentarios" :key="comments.id_user">
+            <div>
+              <p class="text-xl font-semibold">{{comments.asunto}}</p>
+            </div>
+            <div class="flex justify-between mb-1">
+              <p class="text-white leading-normal text-base">{{comments.comentario}}</p>
+              <button v-if="editable" @click="state = 'editing'" class="ml-2 mt-1 mb-auto text-blue-600 hover:text-blue-900 text-sm">Edit</button>
+            </div>
+            <div class="text-grey-dark leading-normal text-sm">
+              <p>{{comments.author.id_user}} <span class="mx-1 text-xs">&bull;</span> {{comments.fecha}}</p>
+            </div>
           </div>
         </div>
       </div>
@@ -111,7 +120,7 @@ export default {
   },
 
   // aqui se guardaran las screenshots en un array
-  data: () => ({ screen: [], comentarios: [], comm: { asunto: null, coment: null, date: '13/11/2000'} }),
+  data: () => ({ state: 'default', data: {body: ''}, screen: [], comentarios: [], comm: { asunto: null, coment: null } }),
 
   async asyncData({ params }) {
     const games = await axios.get(`https://rawg-video-games-database.p.rapidapi.com/games/${params.id}`);
@@ -124,22 +133,66 @@ export default {
     backgroundImage() { return this.games.background_image_additional },
     getDescription() { return this.games.description},
     getRedditUrl() { return this.games.reddit_url },
-    GetIndex() { return this.comentarios.length }
+    GetIndex() { return this.comentarios.length },
   },
 
   methods:{
     AgregarComentarios(){
+      var indice = this.GetIndex
+      var games_id = this.games.id
+      var com_asunto = this.comm.asunto
+      var com_comentario = this.comm.coment
 
-      console.log(this.GetIndex, this.games.id, this.comm.asunto, this.comm.coment, this.comm.date, firebase.auth().currentUser.uid)
-      // firebase.auth().onAuthStateChanged(function(user) {
-      //   firebase.database().ref('comentarios/'+this.GetIndex).set({
-      //     id_game: games.id,
-      //     asunto: this.comm.asunto,
-      //     comentario: this.comm.coment,
-      //     fecha: this.comm.date,
-      //     id_user: firebase.auth().currentUser.uid
-      //   })
-      // })
+      if ((this.comm.asunto != null && this.comm.asunto != "") && (this.comm.coment != null && this.comm.coment != "")){
+        firebase.auth().onAuthStateChanged(function(user) {
+          firebase.database().ref('comentarios/'+1).set({
+            id: indice,
+            id_game: games_id,
+            edited: false,
+            asunto: com_asunto,
+            comentario: com_comentario,
+            fecha: new Date().toLocaleString(),
+            author: {
+              id_user: firebase.auth().currentUser.email
+            }
+            
+          })
+        })
+      }
+
+      this.refrescarDatabase()
+    },
+
+    startEditing() {
+        this.state = 'editing';
+    },
+    stopEditing() {
+        this.state = 'default';
+        this.data.body = '';
+    },
+
+    saveComment() {
+      firebase.auth().onAuthStateChanged(function(user) {
+        let newComment = {
+          id: indice,
+          id_game: games_id,
+          edited: false,
+          asunto: com_asunto,
+          comentario: com_comentario,
+          fecha: new Date().toLocaleString(),
+          author: {
+            id_user: firebase.auth().currentUser.email
+          } 
+        }
+      })
+
+      firebase.database().ref('comentarios/'+1).set(this.comments.push(newComment))
+      this.stopEditing();
+    },
+
+    refrescarDatabase(){
+      const messageRef = firebase.database().ref('comentarios')
+      axios(messageRef.toString() + '.json').then(res => { this.comentarios = res.data })
     }
   },
 
@@ -174,6 +227,11 @@ export default {
 }
 
 .bg-juanma {
-  background-color: rgb(66, 66, 66)}
+  background-color: rgb(66, 66, 66)
+}
+
+.text-juanma{
+  color:rgb(66, 66, 66)
+}
 
 </style>
