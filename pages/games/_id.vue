@@ -135,7 +135,7 @@ export default {
     backgroundImage() { return this.games.background_image_additional },
     getDescription() { return this.games.description},
     getRedditUrl() { return this.games.reddit_url },
-    GetIndex() { return this.comentarios.length },
+    GetIndex() { return this.comentarios.length }
   },
 
   methods:{
@@ -204,6 +204,7 @@ export default {
   font-family: Times;
   line-height: 1;
 }
+
 .Stars::before {
   content: '★★★★★';
   letter-spacing: 1px;
@@ -219,5 +220,4 @@ export default {
 .text-juanma{
   color:rgb(66, 66, 66)
 }
-
 </style>

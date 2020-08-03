@@ -23,3 +23,9 @@ export default {
   }
 }
 </script>
+
+<style>
+.bg-jm {
+  background-color: rgb(34, 34, 34)
+}
+</style>
