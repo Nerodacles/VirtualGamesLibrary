@@ -41,14 +41,28 @@ export default {
     h: firebase.auth().currentUser,
   }),
   mounted(){
-    // firebase.auth().onAuthStateChanged(function(user) {
-      // firebase.database().ref('comentarios').child('-MDg9R9GmasV7VhEqMtl').on('value', snap => console.log(snap.val()))
-      // console.log(firebase.database().ref('comentarios').child('-MDg9R9GmasV7VhEqMtl').on('value', snap => console.log(snap.val())))
-      // if (user) {
-      // console.log(firebase.auth().currentUser)
-      // } else {
-    // }
-    // });
+    firebase.auth().onAuthStateChanged(function(user) {
+      firebase.database().ref('comentarios').child('-MDg9R9GmasV7VhEqMtl').on('value', snap => console.log(snap.val()))
+      console.log(firebase.database().ref('comentarios').child('-MDg9R9GmasV7VhEqMtl').on('value', snap => console.log(snap.val())))
+      if (user) {
+        //   firebase.auth().onAuthStateChanged(function(user) {
+        //   firebase.database().ref('comentarios/1').set({
+        //     id: 1,
+        //     id_game: '1',
+        //     edited: false,
+        //     deleted: false,
+        //     asunto: '1',
+        //     comentario: '1',
+        //     fecha: new Date().toLocaleString(),
+        //     author: {
+        //     id_user: firebase.auth().currentUser.email
+        //     }
+        //   })
+        // })
+      console.log(firebase.auth().currentUser)
+      } else {
+    }
+    });
     },
 
   methods: {
@@ -56,12 +70,12 @@ export default {
       this.BToggle = !this.BToggle
     },
     
-  //   Logout(){
-  //     firebase.auth().signOut().then(function() { }).catch(function(error) { });
-  //     VueCookies.remove(firebase.auth().currentUser.email)
-  //     this.cookie=0;
-  //     location=("/");    
-  //   }
+    Logout(){
+      firebase.auth().signOut().then(function() { }).catch(function(error) { });
+      VueCookies.remove(firebase.auth().currentUser.email)
+      this.cookie=0;
+      location=("/");    
+    }
   }
 }
 </script>

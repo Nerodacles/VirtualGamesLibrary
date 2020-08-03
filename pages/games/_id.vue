@@ -145,19 +145,26 @@ export default {
       var com_asunto = this.comm.asunto
       var com_comentario = this.comm.coment
       if ((this.comm.asunto != null && this.comm.asunto != "") && (this.comm.coment != null && this.comm.coment != "")){
+        if(firebase.auth().currentUser!=null)
+        {
         firebase.auth().onAuthStateChanged(function(user) {
           firebase.database().ref('comentarios/'+indice).set({
             id: indice,
             id_game: games_id,
             edited: false,
+            deleted: false,
             asunto: com_asunto,
             comentario: com_comentario,
             fecha: new Date().toLocaleString(),
             author: {
-              id_user: firebase.auth().currentUser.email
+            id_user: firebase.auth().currentUser.email
             }
           })
         })
+      }
+      else {
+        alert("Necesita estar registrado para poder comentar aquí")
+      }
       }
 
       this.refrescarDatabase()
