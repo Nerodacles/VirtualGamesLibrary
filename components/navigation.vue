@@ -18,8 +18,8 @@
         <a href="/about"><p class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-500">About</p></a>
       </div>
       <div>
-        <a href="/login" class="" v-if="this.h==null"><p class="inline-block lg:-ml-20 text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-gray-500 hover:bg-white mt-4 lg:mt-0">Login</p></a>
-        <a @click="Logout()" class="" v-if="this.h!=null"><p class="inline-block lg:-ml-20 text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-gray-500 hover:bg-white mt-4 lg:mt-0">Logout</p></a>
+        <button v-on:click="haceralgo()" class="inline-block lg:-ml-20 text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-gray-500 hover:bg-white mt-4 lg:mt-0"> {{this.stateAuth}} </button>
+        <!-- <a @click="Logout()" class="" v-if="this.h!=null"><p class="inline-block lg:-ml-20 text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-gray-500 hover:bg-white mt-4 lg:mt-0">Logout</p></a> -->
       </div>
     </div>
   </nav>
@@ -36,14 +36,20 @@ export default {
     VueMaterial,
   },
 
+  computed:{
+    getAuth(){ return firebase.auth().currentUser.email },
+    SetTitle(){ if( this.getAuth != null ) return this.stateAuth = 'Logout' }
+  },
+
   data: () => ({
     BToggle: true,
-    h: firebase.auth().currentUser,
+    stateAuth: 'Login',
   }),
   mounted(){
+    // setTimeout(this.getAuth,5000)
+    // console.log(this.getAuth)
     firebase.auth().onAuthStateChanged(function(user) {
-      firebase.database().ref('comentarios').child('-MDg9R9GmasV7VhEqMtl').on('value', snap => console.log(snap.val()))
-      console.log(firebase.database().ref('comentarios').child('-MDg9R9GmasV7VhEqMtl').on('value', snap => console.log(snap.val())))
+      var juanma = firebase.auth().currentUser
       if (user) {
         //   firebase.auth().onAuthStateChanged(function(user) {
         //   firebase.database().ref('comentarios/1').set({
@@ -59,10 +65,26 @@ export default {
         //     }
         //   })
         // })
-      console.log(firebase.auth().currentUser)
-      } else {
-    }
+      // console.log(firebase.auth().currentUser)
+      }
     });
+
+    // var juanma = firebase.auth().currentUser
+    // console.log(juanma)
+
+    // firebase.auth().onAuthStateChanged(function(user) {
+      // if (user) {
+        // var juanma = firebase.auth().currentUser
+      // } else {
+        
+        // }
+    // });
+
+    // return this.stateAuth = 'Juanma'
+    // firebase.auth().onAuthStateChanged(){
+      // if( juanma.email != null) return this.stateAuth = 'Logout'
+    // }
+    
     },
 
   methods: {
@@ -70,6 +92,14 @@ export default {
       this.BToggle = !this.BToggle
     },
     
+    haceralgo(){
+      if (this.stateAuth == 'Login'){
+        location=("/login")
+      }
+      if (this.stateAuth == 'Logout'){
+        location=("/Admins")
+      }
+    },
     Logout(){
       firebase.auth().signOut().then(function() { }).catch(function(error) { });
       VueCookies.remove(firebase.auth().currentUser.email)
