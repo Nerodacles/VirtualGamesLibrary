@@ -5,30 +5,30 @@
         <div class="w-full md:w-1/4"></div>
         <div class="w-full md:w-3/4 md:ml-12">
           <h1 class="font-heading">{{ games.name }}</h1>
-          <div v-if="(games.publishers != null) && (games.publishers != [])">{{ games.publishers[0].name }}</div>
+          <div v-if="(!!games.publishers) && (games.publishers != [])">{{ games.publishers[0].name }}</div>
         </div>
       </div>
     </div>
     <div class="container mx-auto flex flex-col md:flex-row ">
       <div class="w-full md:w-1/4 -mt-16">
-        <img :src="games.background_image " alt="cover" class="mb-8" v-if="games.background_image != null">
+        <img :src="games.background_image " alt="cover" class="mb-8" v-if="!!games.background_image">
 
-        <div class="mb-4" v-if="games.platforms != null">
+        <div class="mb-4" v-if="!!games.platforms">
           <span class="font-semibold">Platforms:</span>
           <span v-for="platform in games.platforms" :key="platform.platform.id" class="">{{ platform.platform.name }}, </span>
         </div>
 
-        <div class="mb-2" v-if="games.genres != null">
+        <div class="mb-2" v-if="!!games.genres">
           <span class="font-semibold">Genres:</span>
           <span v-for="genres in games.genres" :key="genres.id" >{{ genres.name }}, </span>
         </div>
 
-        <div class="mb-2" v-if="games.esrb_rating != null">
+        <div class="mb-2" v-if="!!games.esrb_rating">
           <span class="font-semibold">ESRB Rating:</span>
           <span>{{ games.esrb_rating.name }}</span>
         </div>
 
-        <div class="mb-4" v-if="games.released =! null">
+        <div class="mb-4" v-if="!!games.released">
           <span class="font-semibold">Released:</span>
           <span>{{ games.released }}</span>
         </div>
@@ -37,12 +37,12 @@
           <a :href="getOfficialWebsite">Official Website</a>
         </div>
 
-        <div class="mb-6" v-if="games.rating != null">
+        <div class="mb-6" v-if="!!games.rating">
           <div class="Stars" :style="`--rating: ${games.rating};`"></div>
           <div class="font-semibold">Overall Rating</div>
         </div>
 
-        <div class="mb-6" v-if="games.stores != null">
+        <div class="mb-6" v-if="!!games.stores">
           <span>Stores:</span>
             <div v-for="store in games.stores" :key="store.id">
               <div class="hover:text-gray-600">
@@ -51,7 +51,7 @@
             </div>
         </div>
 
-        <div class="mb-6" v-if="games.reddit_url != null">
+        <div class="mb-6" v-if="!!games.reddit_url">
           <a :href="getRedditUrl">Reddit</a>
         </div>
 
@@ -66,8 +66,8 @@
             <img :src="screenshot.image" alt="screenshot">
           </a>
         </div>
-        <p class="font-semibold" v-if="games.clip != null">Trailer:</p>
-        <div class="flex flex-wrap items-center justify-center" v-if="games.clip != null">
+        <p class="font-semibold" v-if="!!games.clip">Trailer:</p>
+        <div class="flex flex-wrap items-center justify-center" v-if="!!games.clip">
           <Media :kind="'video'" :controls="true" :src="games.clip.clip"> </Media>
         </div>
 
@@ -89,7 +89,7 @@
               </div>
             </div>
           </div>
-          <div class="flex flex-wrap bg-juanma rounded shadow-sm p-5" v-for="comments in comentarios" :key="comments.id_user" v-if="comments.id_game == games.id && comments.deleted == false">
+          <div class="flex flex-wrap bg-juanma rounded shadow-sm p-5" v-for="comments in comentarios" :key="comments.id_user" v-if="comments.id_game == games.id && comments.deleted == false"> 
             <div>
               <div>
                 <p class="text-xl font-semibold">{{comments.asunto}}</p>
@@ -122,7 +122,7 @@ export default {
   },
 
   // aqui se guardaran las screenshots en un array
-  data: () => ({ state: 'default', data: {body: ''}, screen: [], comentarios: [], comm: { asunto: null, coment: null } }),
+  data: () => ({ screen: [], comentarios: [], comm: { asunto: null, coment: null } }),
 
   async asyncData({ params }) {
     const games = await axios.get(`https://rawg-video-games-database.p.rapidapi.com/games/${params.id}`);
@@ -144,38 +144,24 @@ export default {
       var games_id = this.games.id
       var com_asunto = this.comm.asunto
       var com_comentario = this.comm.coment
-      if ((this.comm.asunto != null && this.comm.asunto != "") && (this.comm.coment != null && this.comm.coment != "")){
-        if(firebase.auth().currentUser!=null)
-        {
-        firebase.auth().onAuthStateChanged(function(user) {
-          firebase.database().ref('comentarios/'+indice).set({
-            id: indice,
-            id_game: games_id,
-            edited: false,
-            deleted: false,
-            asunto: com_asunto,
-            comentario: com_comentario,
-            fecha: new Date().toLocaleString(),
-            author: {
-            id_user: firebase.auth().currentUser.email
-            }
+      if (!!this.comm.asunto && this.comm.coment){
+        if(!!firebase.auth().currentUser){
+          firebase.auth().onAuthStateChanged(function(user) {
+            firebase.database().ref('comentarios/'+indice).set({
+              id: indice,
+              id_game: games_id,
+              edited: false,
+              deleted: false,
+              asunto: com_asunto,
+              comentario: com_comentario,
+              fecha: new Date().toLocaleString(),
+              author: { id_user: firebase.auth().currentUser.email }
+            })
           })
-        })
+        }
+        else { alert("You need to be logged in to comment") }
       }
-      else {
-        alert("Necesita estar registrado para poder comentar aquí")
-      }
-      }
-
       this.refrescarDatabase()
-    },
-
-    startEditing() {
-      this.state = 'editing';
-    },
-    stopEditing() {
-      this.state = 'default';
-      this.data.body = '';
     },
 
     Cancelar(){

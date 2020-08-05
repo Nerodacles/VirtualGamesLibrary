@@ -15,12 +15,13 @@
     <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto" v-if="BToggle">
       <div class="text-sm lg:flex-grow">
         <a href="/"><p class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-500 mr-4">Home</p></a>
-        <a href="/about"><p class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-500">About</p></a>
-        <a href="/Admins"><p class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-500 " v-if="cookie">Admins</p></a>
+        <a href="/about"><p class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-500 mr-4" >About</p></a>
+        <a href="/Admins"><p class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-500 mr-4" v-if="cookie()">Admins</p></a>
       </div>
       <div>
-        <button v-on="Renderizar()" v-on:click="haceralgo()" class="inline-block lg:-ml-20 text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-gray-500 hover:bg-white mt-4 lg:mt-0" v-if="admin==null"> Login </button>
-        <button v-on="Renderizar()" v-on:click="Logout()" class="inline-block lg:-ml-20 text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-gray-500 hover:bg-white mt-4 lg:mt-0" v-if="admin!=null">Logout</button> 
+        <!-- <button v-on="Renderizar()" v-on:click="haceralgo()" class="inline-block lg:-ml-20 text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-gray-500 hover:bg-white mt-4 lg:mt-0" v-if="admin==null">Login</button> -->
+        <button :key="componentKey" v-on:click="haceralgo()" class="inline-block lg:-ml-20 text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-gray-500 hover:bg-white mt-4 lg:mt-0"> {{this.stateAuth}} </button>
+        <!-- <button v-on="Renderizar()" v-on:click="Logout()" class="inline-block lg:-ml-20 text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-gray-500 hover:bg-white mt-4 lg:mt-0" v-if="!!admin">Logout</button> -->
       </div>
     </div>
   </nav>
@@ -33,6 +34,12 @@ import VueCookies from 'vue-cookies'
 import firebase from '~/components/firebase.js'
 
 export default {
+  data: () => ({
+    BToggle: true,
+    stateAuth: 'Login',
+    componentKey: 0
+  }),
+
   components: {
     VueMaterial,
   },
@@ -40,28 +47,12 @@ export default {
   computed:{
     getAuth(){ return firebase.auth().currentUser.email },
     SetTitle(){ if( this.getAuth != null ) return this.stateAuth = 'Logout' },
-    currentUser(){firebase.auth().onAuthStateChanged(function(user) {
-    console.log(firebase.auth().currentUser)
-      if (user) {
-        this.admin=firebase.auth().currentUser.email
-        console.log(firebase.auth().currentUser.email)
-      }
-    });}
   },
 
-  data: () => ({
-    BToggle: true,
-    auth: firebase.auth().onAuthStateChanged(function(user) {}),
-    admin:firebase.auth().currentUser,
-    stateAuth: 'Login',
-  }),
   mounted(){
     firebase.auth().onAuthStateChanged(function(user) {
       var juanma = firebase.auth().currentUser
-      if (user){
-
-        console.log(firebase.auth().currentUser)
-      }
+      if (user){ }
     });
     },
 
@@ -71,33 +62,32 @@ export default {
     },
     
     haceralgo(){
-      if (this.stateAuth == 'Login'){
-        location=("/logiN")
-      }
-      if (this.stateAuth == 'Logout'){
-        location=("/Admins")
-      }
+      if (this.stateAuth == 'Login'){ location=("/login") }
+      if (this.stateAuth == 'Logout') { this.Logout() }
     },
+
     Renderizar(){
       firebase.auth().onAuthStateChanged(function(user) {
-        if (user){
-          this.admin=firebase.auth().currentUser.email
-        }
-      });
+        if (user){ this.admin=firebase.auth().currentUser.email } });
     },
+
     Logout(){
-      firebase.auth().signOut().then(function() { }).catch(function(error) { });
+      firebase.auth().signOut().then(function() { }).catch(function(error) { } );
       VueCookies.remove(firebase.auth().currentUser.email)
       this.cookie=0;
       location=("/");    
     },
+
     cookie(){
       firebase.auth().onAuthStateChanged(function(user) {
-      var juanma = firebase.auth().currentUser
-      if (user){
-      }
-    });
+      var userConnected = firebase.auth().currentUser.email
+      if (userConnected === "admin@admin.com"){ return true } });
+    },
+
+    forceRerender() {
+      this.componentKey += 1;
     }
+
   }
 }
 </script>

@@ -18,21 +18,20 @@
           <button class="border border-blue-300 bg-red-600 text-white hover:bg-Red-400 hover:text-black py-2 px-100 rounded tracking-wide mr-1" v-on:click="borrar(comments.id)" v-if="state==false">Borrar</button>
         </div>
         <div class="rounded bg-juanma shadow-sm p-8 mb-4" v-if="state == true && comments.id == id">
-                <div class="mb-4">
-                  <h1>Edit the comment</h1>
-                </div>
-                <div class="py-2">
-                  <input type="text" v-model="newAsunto" placeholder="Add a title" class="text-black px-5 rounded leading-normal py-1">
-                </div>
-                <textarea placeholder="Add a comment" v-model="newComentario" class="text-black rounded leading-normal resize-none w-full h-15 py-2 px-3"></textarea>
-                <div class="mt-3">
-                  <button class="border border-blue-300 bg-green-600 text-white hover:bg-green-400 hover:text-black py-2 px-4 rounded tracking-wide mr-1" v-on:click="Editar(comments.id,newAsunto,newComentario)">Save</button>
-                  <button class="border border-blue-300 bg-red-600 text-white hover:bg-red-400 hover:text-black py-2 px-4 rounded tracking-wide ml-1" v-on:click="state=false,id=null">Cancel</button>
-                </div>
-              </div>
+          <div class="mb-4">
+            <h1>Edit the comment</h1>
+          </div>
+          <div class="py-2">
+            <input type="text" v-model="newAsunto" placeholder="Add a title" class="text-black px-5 rounded leading-normal py-1">
+          </div>
+          <textarea placeholder="Add a comment" v-model="newComentario" class="text-black rounded leading-normal resize-none w-full h-15 py-2 px-3"></textarea>
+          <div class="mt-3">
+            <button class="border border-blue-300 bg-green-600 text-white hover:bg-green-400 hover:text-black py-2 px-4 rounded tracking-wide mr-1" v-on:click="Editar(comments.id,newAsunto,newComentario)">Save</button>
+            <button class="border border-blue-300 bg-red-600 text-white hover:bg-red-400 hover:text-black py-2 px-4 rounded tracking-wide ml-1" v-on:click="state=false,id=null">Cancel</button>
+          </div>
+        </div>
       </div>
     </div>
-    
   </div>
 </template>
 
@@ -41,46 +40,21 @@ import firebase from '~/components/firebase.js'
 import axios from 'axios'
 
 export default {
-  data: () => ({
-    
-    comentarios: [],
-    
-  }),
-  data: () => ({ newAsunto:null,newComentario:null, id: null ,state: false, data: {body: ''}, screen: [], comentarios: [], comm: { asunto: null, coment: null } }),
-
-  methods: {
-    
-  },
+  data: () => ({ newAsunto:null, newComentario:null, id: null ,state: false, data: {body: ''}, screen: [], comentarios: [] }),
 
   mounted(){
     const messageRef = firebase.database().ref('comentarios')
     axios(messageRef.toString() + '.json').then(res => { this.comentarios = res.data })
-     firebase.auth().onAuthStateChanged(function(user) {
+    firebase.auth().onAuthStateChanged(function(user) {
       if (user){
-        if (firebase.auth().currentUser.email!="admin@admin.com"){
-          location="/"
-        }
-      } else{
-        location="/"
-      }
+        if (firebase.auth().currentUser.email!="admin@admin.com") { location="/" }
+      } else { location="/" }
     });
   },
-  computed(){
-      firebase.auth().onAuthStateChanged(function(user) {
-      if (user){
-        if (firebase.auth().currentUser.email!="admin@admin.com"){
-          location="/"
-        }
-      } else{
-        location="/"
-      }
-    });
-  },
+
   methods: {
     borrar(a){
-      firebase.database().ref('comentarios/'+a).update({
-        deleted: true,
-      })
+      firebase.database().ref('comentarios/'+a).update({ deleted: true })
       this.refrescarDatabase()
     },
     refrescarDatabase(){
@@ -89,16 +63,10 @@ export default {
     },
     Editar(id,newAsunto,newComentario){
       this.state=false
-      console.log(newAsunto)
-      firebase.database().ref('comentarios/'+id).update({ 
-        asunto: newAsunto, 
-        comentario: newComentario
-      })
+      firebase.database().ref('comentarios/'+id).update({ asunto: newAsunto, comentario: newComentario })
+      this.newComentario = null, this.newAsunto = null
       this.refrescarDatabase()
     },
-    cancelar(){
-
-    }
   }
 }
 </script>

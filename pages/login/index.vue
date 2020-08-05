@@ -1,5 +1,5 @@
 <template>
-    <modal name="coño">
+    <modal>
         <div class="bg-white  shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col text-black " style=" border: 10px solid white; margin-top: 140px;background-color: Black;">
             <div class="mb-4 justify-between">
                 <img style="float: right;" src="~/static/logo.png" alt="" width="125" height="125" />
@@ -15,7 +15,7 @@
                 <button class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded"  type="button" v-on:click="login()"  style=" border: 5px solid #CCCCCC;"> Login </button>
                 <label class="block text-white text-sm font-bold mb-0" style="margin-left:10px;" for="password"> You do not have an account?
                 <a class="inline-block align-baseline font-bold text-sm text-blue hover:text-blue-darker" href="/Registro"> Sign up. </a> </label>
-                <a class="inline-block align-baseline font-bold mb-0 text-sm text-blue hover:text-blue-darker" style="margin-left:815px;" href="#"> Forgot Password? </a>
+                <a class="inline-block align-baseline font-bold mb-0 text-sm text-blue hover:text-blue-darker" style="margin-left:815px;" href="/passwordReset"> Forgot Password? </a>
             </div>
         </div>
     </modal>

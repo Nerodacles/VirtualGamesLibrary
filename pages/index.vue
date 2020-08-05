@@ -123,7 +123,7 @@ export default {
     platform_id: null, // id de plataformas
     platform_name: null, // nombre de la plataforma
     BToggle: true, // boton para celulares
-    selected: null, 
+    selected: null, // cual genero fue seleccionado
     genres: [], // listado de generos
     }),
 

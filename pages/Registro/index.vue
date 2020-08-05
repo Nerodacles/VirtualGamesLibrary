@@ -2,16 +2,8 @@
     <modal name="coño">
 <div class="bg-white  shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col text-black "   style=" border: 10px solid white; margin-top: 90px; background-color: Black;">
     <div class="mb-4 justify-between">
-     <img
-            style="float: right;"
-            src="~/static/logo.png"
-            alt=""
-            width="125"
-            height="125"
-        />
-       <label class="block text-white text-sm font-bold mb-2" for="username">
-        E-mail
-      </label>
+    <img style="float: right;" src="~/static/logo.png" alt="" width="125" height="125" />
+    <label class="block text-white text-sm font-bold mb-2" for="username">E-mail</label>
       <input class="shadow appearance-none border rounded w-50 py-2 px-3 text-grey-darker" style="width: 500px;" id="E-mail"   v-model="input.username" type="text" placeholder="E-mail">
       
       <label class="block text-white text-sm font-bold mb-2" for="password">
