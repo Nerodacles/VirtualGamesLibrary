@@ -89,7 +89,7 @@
               </div>
             </div>
           </div>
-          <div class="flex flex-wrap bg-juanma rounded shadow-sm p-5" v-for="comments in comentarios" :key="comments.id_user" v-if="comments.id_game == games.id && comments.deleted == false"> 
+          <div class="flex flex-wrap bg-juanma rounded shadow-sm p-5 mb-3" v-for="comments in comentarios" :key="comments.id_user" v-if="comments.id_game == games.id && comments.deleted == false"> 
             <div>
               <div>
                 <p class="text-xl font-semibold">{{comments.asunto}}</p>

@@ -1,7 +1,7 @@
 
 <template>
   <div class="py-10 px-2">
-    <div class="flex flex-wrap bg-juanma rounded shadow-sm p-5" v-for="comments in comentarios" :key="comments.id_user">
+    <div class="flex flex-wrap bg-juanma rounded shadow-sm p-5 mb-3" v-for="comments in comentarios" :key="comments.id_user">
       <div>
         <div>
           <p class="text-xl font-semibold" v-if="comments.deleted == false">{{comments.asunto}}</p>
