@@ -45,7 +45,7 @@
     }
 </script>
 
-<style scoped>
+<style>
     #login {
         width: 500px;
         border: 10px solid #CCCCCC;
