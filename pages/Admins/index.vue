@@ -1,3 +1,4 @@
+
 <template>
   <div class="py-10 px-2">
     <div class="flex flex-wrap bg-juanma rounded shadow-sm p-5" v-for="comments in comentarios" :key="comments.id_user">
@@ -21,11 +22,11 @@
                   <h1>Edit the comment</h1>
                 </div>
                 <div class="py-2">
-                  <input type="text" v-model="comm.asunto" placeholder="Add a title" class="text-black px-5 rounded leading-normal py-1">
+                  <input type="text" v-model="newAsunto" placeholder="Add a title" class="text-black px-5 rounded leading-normal py-1">
                 </div>
-                <textarea placeholder="Add a comment" v-model="comm.coment" class="text-black rounded leading-normal resize-none w-full h-15 py-2 px-3"></textarea>
+                <textarea placeholder="Add a comment" v-model="newComentario" class="text-black rounded leading-normal resize-none w-full h-15 py-2 px-3"></textarea>
                 <div class="mt-3">
-                  <button class="border border-blue-300 bg-green-600 text-white hover:bg-green-400 hover:text-black py-2 px-4 rounded tracking-wide mr-1" v-on:click="Editar(comments.id)">Save</button>
+                  <button class="border border-blue-300 bg-green-600 text-white hover:bg-green-400 hover:text-black py-2 px-4 rounded tracking-wide mr-1" v-on:click="Editar(comments.id,newAsunto,newComentario)">Save</button>
                   <button class="border border-blue-300 bg-red-600 text-white hover:bg-red-400 hover:text-black py-2 px-4 rounded tracking-wide ml-1" v-on:click="state=false,id=null">Cancel</button>
                 </div>
               </div>
@@ -41,9 +42,11 @@ import axios from 'axios'
 
 export default {
   data: () => ({
+    
     comentarios: [],
+    
   }),
-  data: () => ({  id: null ,state: false, data: {body: ''}, screen: [], comentarios: [], comm: { asunto: null, coment: null } }),
+  data: () => ({ newAsunto:null,newComentario:null, id: null ,state: false, data: {body: ''}, screen: [], comentarios: [], comm: { asunto: null, coment: null } }),
 
   methods: {
     
@@ -52,6 +55,26 @@ export default {
   mounted(){
     const messageRef = firebase.database().ref('comentarios')
     axios(messageRef.toString() + '.json').then(res => { this.comentarios = res.data })
+     firebase.auth().onAuthStateChanged(function(user) {
+      if (user){
+        if (firebase.auth().currentUser.email!="admin@admin.com"){
+          location="/"
+        }
+      } else{
+        location="/"
+      }
+    });
+  },
+  computed(){
+      firebase.auth().onAuthStateChanged(function(user) {
+      if (user){
+        if (firebase.auth().currentUser.email!="admin@admin.com"){
+          location="/"
+        }
+      } else{
+        location="/"
+      }
+    });
   },
   methods: {
     borrar(a){
@@ -64,11 +87,12 @@ export default {
       const messageRef = firebase.database().ref('comentarios')
       axios(messageRef.toString() + '.json').then(res => { this.comentarios = res.data })
     },
-    Editar(id){
+    Editar(id,newAsunto,newComentario){
       this.state=false
+      console.log(newAsunto)
       firebase.database().ref('comentarios/'+id).update({ 
-        asunto: this.comm.asunto, 
-        comentario: this.comm.comment
+        asunto: newAsunto, 
+        comentario: newComentario
       })
       this.refrescarDatabase()
     },
