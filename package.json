@@ -19,7 +19,8 @@
     "nuxt": "^2.0.0",
     "vue-cookies": "^1.7.0",
     "vue-material": "^1.0.0-beta-14",
-    "vuefire": "^2.2.3"
+    "vuefire": "^2.2.3",
+    "vuex-persistedstate": "^3.1.0"
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^1.0.0",
