@@ -1,6 +1,6 @@
 <template>
   <div>
-    <navigation></navigation>
+    <navigation class="bg-jm"></navigation>
     <nuxt />
   </div>
 </template>

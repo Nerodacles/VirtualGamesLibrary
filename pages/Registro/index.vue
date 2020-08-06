@@ -1,6 +1,6 @@
 <template>
   <modal>
-    <div class="bg-white  shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col text-black "   style=" border: 10px solid white; margin-top: 90px; background-color: Black;">
+    <div class="bg-white  shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col text-black " style=" border: 10px solid white; margin-top: 90px; background-color: Black;">
       <div class="mb-4 justify-between">    
         <img style="float: right;" src="~/static/logo.png" alt="" width="125" height="125" />
         <label class="block text-white text-sm font-bold mb-2" for="username">E-mail</label>
@@ -56,3 +56,9 @@
     }
   }
 </script>
+
+<style>
+  .bg-juanma {
+  background-color: rgb(66, 66, 66)
+}
+</style>
