@@ -1,6 +1,8 @@
 <template>
   <div>
-    <navigation class="bg-jm"></navigation>
+    <client-only placeholder="Loading...">
+      <navigation class="bg-jm"></navigation>  
+    </client-only>
     <nuxt />
   </div>
 </template>

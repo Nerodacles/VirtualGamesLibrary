@@ -143,7 +143,7 @@ export default {
       var games_id = this.games.id
       var com_asunto = this.comm.asunto
       var com_comentario = this.comm.coment
-      if (!!this.comm.asunto && this.comm.coment){
+      if (!!this.comm.asunto && !!this.comm.coment){
         if(!!firebase.auth().currentUser){
           firebase.auth().onAuthStateChanged(function(user) {
             firebase.database().ref('comentarios/'+indice).set({
@@ -160,6 +160,8 @@ export default {
         }
         else { alert("You need to be logged in to comment") }
       }
+      this.comm.asunto = null
+      this.comm.coment = null
       this.refrescarDatabase()
     },
 

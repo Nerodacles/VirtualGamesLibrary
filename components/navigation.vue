@@ -16,10 +16,10 @@
       <div class="text-sm lg:flex-grow">
         <a href="/"><p class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-500 mr-4">Home</p></a>
         <a href="/about"><p class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-500 mr-4">About</p></a>
-        <a href="/Admins"><p class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-500 mr-4">Admins</p></a>
+        <a href="/Admins" v-if="this.Admin == true"><p class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-500 mr-4">Admins</p></a>
       </div>
       <div>
-        <button :key="componentKey" v-on:click="haceralgo()" class="inline-block lg:-ml-20 text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-gray-500 hover:bg-white mt-4 lg:mt-0"> {{this.stateAuth}} </button>
+        <button v-on:click="haceralgo()" class="inline-block lg:-ml-20 text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-gray-500 hover:bg-white mt-4 lg:mt-0"> {{this.stateAuth}} </button>
       </div>
     </div>
   </nav>
@@ -35,8 +35,8 @@ export default {
   data: () => ({
     BToggle: true,
     stateAuth: 'Login',
-    componentKey: 0
-  }),
+    Admin: false
+    }),
 
   components: {
     VueMaterial,
@@ -44,11 +44,19 @@ export default {
 
   computed:{
     getAuth(){ return firebase.auth().currentUser.email },
-    SetTitle(){ if( this.getAuth != null ) return this.stateAuth = 'Logout' },
+    SetTitle(){ if( !!this.getAuth ) return this.stateAuth = 'Logout' },
+    IsAdmin(){ if(this.getAuth == 'admin@admin.com') return this.Admin = true}
   },
 
   mounted(){
-    },
+    firebase.auth().currentUser
+    setTimeout(() => this.SetTitle, 2000);
+    setTimeout(() => this.IsAdmin, 2000);
+  },
+
+  async Authenticated(){
+    await firebase
+  },
 
   methods: {
     toggle: function(){
@@ -64,13 +72,8 @@ export default {
       firebase.auth().signOut().then(function() { }).catch(function(error) { } );
       VueCookies.remove(firebase.auth().currentUser.email)
       this.cookie=0;
-      location=("/");    
+      location='';  
     },
-
-    forceRerender() {
-      this.componentKey += 1;
-    }
-
-  }
+  },
 }
 </script>

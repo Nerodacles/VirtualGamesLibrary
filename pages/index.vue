@@ -160,7 +160,7 @@ export default {
     },
   },
 
-  watch: { // Esto es para que cuando cambie el valor de keyword, se busque automaticamente
+  watch: { // Esto es para que cuando cambie el valor de algun control, se busque automaticamente
     keyword(newKeyword, oldKeyword){ this.searchGames() },
     limite(newLimite, oldLimite){ this.searchPlatform() },
     selected(newSelected, oldSelected){ this.searchGames() }
