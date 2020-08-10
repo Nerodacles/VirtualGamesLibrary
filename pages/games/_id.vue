@@ -96,7 +96,6 @@
               </div>
               <div class="flex justify-between mb-1">
                 <p class="text-white leading-normal text-base">{{comments.comentario}}</p>
-                <button v-if="editable" @click="state = 'editing'" class="ml-2 mt-1 mb-auto text-blue-600 hover:text-blue-900 text-sm">Edit</button>
               </div>
               <div class="text-grey-dark leading-normal text-xs">
                 <p>{{comments.author.id_user}} <span class="mx-1 text-xs">&bull;</span> {{comments.fecha}}</p>
