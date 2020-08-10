@@ -16,14 +16,9 @@ axios.defaults.headers.common['x-rapidapi-key'] = '8a895adf10msh0d35a728b6ad2d7p
 axios.defaults.headers.common['useQueryString'] = true
 axios.defaults.headers.common['SameSite'] = 'Lax'
 
-export default {
-  components: {
-    Navigation,
-    VueMaterial,
-  }
 
+export default { components: { Navigation, VueMaterial} }
 
-}
 </script>
 
 <style>
