@@ -1,5 +1,5 @@
 <template>
-  <div class="flex">
+  <div class="flex bg-jm">
     <div class="block lg:hidden">
       <button class="flex items-center px-3 py-2 border rounded hover:text-white hover:border-white" v-on:click='toggle'>
         <svg class="fill-current h-3 w-3" viewBox="0 0 20 20">
@@ -167,3 +167,9 @@ export default {
   }
 }
 </script>
+
+<style>
+.bg-jm {
+  background-color: rgb(34, 34, 34)
+}
+</style>
