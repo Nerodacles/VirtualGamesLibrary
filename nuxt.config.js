@@ -19,18 +19,18 @@ export default {
     ]
   },
 
-  server: {
-    port: 8000, // default: 3000
-    host: '0.0.0.0', // default: localhost
+  // server: {
+  //   port: 8000, // default: 3000
+  //   host: '0.0.0.0', // default: localhost
 
-    https: {
-      key: fs.readFileSync(path.resolve(__dirname, 'server.key')),
-      cert: fs.readFileSync(path.resolve(__dirname, 'server.crt')),
-      handshakeTimeout: 120,
-      requestCert: false,
-      rejectUnauthorized: false,
-    }
-  },
+  //   https: {
+  //     key: fs.readFileSync(path.resolve(__dirname, 'server.key')),
+  //     cert: fs.readFileSync(path.resolve(__dirname, 'server.crt')),
+  //     handshakeTimeout: 120,
+  //     requestCert: false,
+  //     rejectUnauthorized: false,
+  //   }
+  // },
 
   // router: { base: '/VirtualGames/' },
 
