@@ -1,6 +1,6 @@
 
 <template class="bg-jm">
-  <div class="container mx-auto py-5 px-1">
+  <div class="container mx-auto py-5 px-1 bg-jm">
     <div class="bg-juanma rounded shadow-sm p-5 mb-3" v-for="comments in comentarios" :key="comments.id_user">
       <div>
         <div>
