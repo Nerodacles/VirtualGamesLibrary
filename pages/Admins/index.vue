@@ -1,5 +1,5 @@
 
-<template>
+<template class="bg-jm">
   <div class="container mx-auto py-5 px-1">
     <div class="bg-juanma rounded shadow-sm p-5 mb-3" v-for="comments in comentarios" :key="comments.id_user">
       <div>
@@ -104,6 +104,10 @@ export default {
 <style>
 .bg-juanma {
   background-color: rgb(66, 66, 66)
+}
+
+.bg-jm {
+  background-color: rgb(29, 29, 29)
 }
 
 .text-juanma{
