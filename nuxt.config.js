@@ -18,24 +18,7 @@ export default {
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Montserrat:700|Open+Sans:400,600' }
     ]
   },
-
-  // server: {
-  //   port: 8000, // default: 3000
-  //   host: '0.0.0.0', // default: localhost
-
-  //   https: {
-  //     key: fs.readFileSync(path.resolve(__dirname, 'server.key')),
-  //     cert: fs.readFileSync(path.resolve(__dirname, 'server.crt')),
-  //     handshakeTimeout: 120,
-  //     requestCert: false,
-  //     rejectUnauthorized: false,
-  //   }
-  // },
-
-  // router: { base: '/VirtualGames/' },
-
-  // <link href="https://fonts.googleapis.com/css?family=Montserrat:700|Open+Sans:400,600" rel="stylesheet">
-
+  
   /*
   ** Customize the progress-bar color
   */
