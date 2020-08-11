@@ -14,7 +14,7 @@
             <div class="flex items-center ">
                 <button class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded"  type="button" v-on:click="login()"  style=" border: 5px solid #CCCCCC;"> Login </button>
                 <label class="block text-white text-sm font-bold mb-0" style="margin-left:10px;" for="password"> You do not have an account?
-                <a class="inline-block align-baseline font-bold text-sm text-blue hover:text-blue-darker" href="/Registro"> Sign up. </a> </label>
+                <a class="inline-block align-baseline font-bold text-sm text-blue hover:text-gray-600" href="/Registro"> Sign up. </a> </label>
                 <a class="inline-block align-baseline font-bold mb-0 text-sm text-blue hover:text-blue-darker" style="margin-left:815px;" href="/passwordReset"> Forgot Password? </a>
             </div>
         </div>
