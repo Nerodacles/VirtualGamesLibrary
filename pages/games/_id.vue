@@ -33,7 +33,7 @@
           <span>{{ games.released }}</span>
         </div>
 
-        <div class="mb-6">
+        <div class="mb-6 hover:text-gray-600">
           <a :href="getOfficialWebsite">Official Website</a>
         </div>
 
@@ -51,7 +51,7 @@
             </div>
         </div>
 
-        <div class="mb-6" v-if="!!games.reddit_url">
+        <div class="mb-6 hover:text-gray-600" v-if="!!games.reddit_url">
           <a :href="getRedditUrl">Reddit</a>
         </div>
 
