@@ -170,6 +170,6 @@ export default {
 
 <style>
 .bg-jm {
-  background-color: rgb(34, 34, 34)
+  background-color: rgb(65, 65, 65)
 }
 </style>

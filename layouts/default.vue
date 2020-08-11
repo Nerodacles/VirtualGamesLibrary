@@ -1,7 +1,7 @@
 <template>
   <div>
     <client-only placeholder="Loading...">
-      <navigation class="bg-jm"></navigation>  
+      <navigation ></navigation>  
     </client-only>
     <nuxt />
   </div>
@@ -22,9 +22,3 @@ axios.defaults.headers.common['SameSite'] = 'Lax'
 export default { components: { Navigation, VueMaterial} }
 
 </script>
-
-<style>
-.bg-jm {
-  background-color: rgb(34, 34, 34)
-}
-</style>
