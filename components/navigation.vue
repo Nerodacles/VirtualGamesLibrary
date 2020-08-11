@@ -30,6 +30,7 @@ import VueMaterial from 'vue-material'
 import 'vue-material/dist/theme/default-dark.css'
 import VueCookies from 'vue-cookies'
 import firebase from '~/components/firebase.js'
+import Swal from 'sweetalert2'
 
 export default {
   data: () => ({
@@ -69,10 +70,9 @@ export default {
     },
 
     Logout(){
-      firebase.auth().signOut().then(function() { }).catch(function(error) { } );
-      VueCookies.remove(firebase.auth().currentUser.email)
-      this.cookie=0;
-      location='';  
+      firebase.auth().signOut().then(function() { 
+        location='';  
+      }).catch(function(error) { Swal.fire({background: 'Black',timer:3000 ,Outlinecolor:'white',type: 'success',title: 'An error has occurred',textcolor: 'white',text:'',icon:'error'})} ); 
     },
   },
 }
