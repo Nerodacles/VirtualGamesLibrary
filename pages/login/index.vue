@@ -24,7 +24,7 @@
 <script>
     import VueCookies from 'vue-cookies'
     import firebase from '~/components/firebase.js'
-
+    import Swal from 'sweetalert2'
     export default {
         name: "Login",
         data() {
@@ -38,14 +38,14 @@
         methods: {
             login() {
                 firebase.auth().signInWithEmailAndPassword(this.input.username, this.input.password)
-                .then((user) => location="/" ,(error) => alert("The username and / or password is incorrect"))
-                VueCookies.set(this.input.username)
+                .then((user) => location="/" ,(error) => Swal.fire({background: 'Black',timer:3000 ,Outlinecolor:'white',type: 'success',title: 'The username and / or password is incorrect',textcolor: 'white',text:'Retry',icon:'error'}))
             } 
         },
     }
 </script>
 
 <style>
+
     #login {
         width: 500px;
         border: 10px solid #CCCCCC;
@@ -54,4 +54,5 @@
         margin-top: 200px;
         padding: 10px;
     }
+    
 </style>
