@@ -52,11 +52,11 @@
       Register() {
         if(this.input.password==this.input.password2){
           firebase.auth().createUserWithEmailAndPassword(this.input.username, this.input.password).then(function(){
-            location('/')
+            location='/'
           }).catch(function(error) {
             var errorCode = error.code;
             var errorMessage = error.message;
-            Swal.fire({background: 'Black',timer:3000 ,Outlinecolor:'white',type: 'success',title: "The Email is not valid",textcolor: 'white',text:'Retry',icon:'error'}) 
+            Swal.fire({background: 'Black',timer:3000 ,Outlinecolor:'white',type: 'success',title: errorMessage,textcolor: 'white',text:'Retry',icon:'error'}) 
             });
         }else{
           Swal.fire({background: 'Black',timer:3000 ,Outlinecolor:'white',type: 'success',title: "Passwords are not the same ",textcolor: 'white',text:'Retry',icon:'error'})

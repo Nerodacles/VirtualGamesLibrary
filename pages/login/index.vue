@@ -38,7 +38,7 @@
         methods: {
             login() {
                 firebase.auth().signInWithEmailAndPassword(this.input.username, this.input.password)
-                .then((user) => location="/" ,(error) => Swal.fire({background: 'Black',timer:3000 ,Outlinecolor:'white',type: 'success',title: 'The username and / or password is incorrect',textcolor: 'white',text:'Retry',icon:'error'}))
+                .then((user) => location="/" ,(error) => Swal.fire({background: 'Black',timer:3000 ,Outlinecolor:'white',type: 'success',title: error.message,textcolor: 'white',text:'Retry',icon:'error'}))
             } 
         },
     }
