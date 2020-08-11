@@ -158,6 +158,7 @@ async asyncData({ params }) {
             })
           })
         }
+      } else {
         Swal.fire({background: 'Black',timer:3000 ,Outlinecolor:'white',type: 'success',title: "You need to be logged in to comment",textcolor: 'white',text:'Login or Register for coment',icon:'error'})
       }
       this.comm.asunto = null
