@@ -5,9 +5,9 @@
                 <img style="float: right;" src="~/static/logo.png" alt="" width="125" height="125" />
         
                 <label class="block text-white text-sm font-bold mb-2" for="username"> Username</label>
-                <input class="shadow appearance-none border rounded w-50 py-2 px-3 text-grey-darker" style="width: 500px;" id="username" v-model="input.username" type="text" placeholder="Username">
+                <input class="shadow appearance-none border rounded w-50 py-2 px-3 text-grey-900 text-black" style="width: 500px;" id="username" v-model="input.username" type="text" placeholder="Username">
                 <label class="block text-white text-sm font-bold mb-2" for="password"> Password </label>
-                <input class="shadow appearance-none border border-red rounded w-50 py-2 px-3 text-grey-darker mb-3"  style="width: 500px;" id="password" v-model="input.password" type="password" placeholder="******************">
+                <input class="shadow appearance-none border border-red rounded w-50 py-2 px-3 text-grey-900 mb-3 text-black"  style="width: 500px;" id="password" v-model="input.password" type="password" placeholder="******************">
                 <p class="text-white text-xs italic">Please choose a password.</p>
             </div>
 

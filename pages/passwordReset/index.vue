@@ -19,6 +19,7 @@
 
 <script>
 import firebase from '~/components/firebase.js'
+import Swal from 'sweetalert2'
 
 export default {
     data() {
@@ -30,13 +31,16 @@ export default {
         PasswordReset(){
             var auth = firebase.auth();
             var emailAddress = this.email;
-
-            auth.sendPasswordResetEmail(emailAddress).then(function() {
-                alert("The recovery email was send succesfully.")
-                location="/"
-            }).catch(function(error) {
-                alert("This email is invalid.")
-            });
+            if(!!emailAddress){
+                auth.sendPasswordResetEmail(emailAddress).then(function() {
+                    // alert("The recovery email was send succesfully.")
+                    Swal.fire({background: 'Black',timer:3000 ,Outlinecolor:'white',type: 'success',title: "The recovery email was send succesfully.",textcolor: 'white', icon:'success'}) 
+                    location="/"
+                }).catch(function(error) {
+                    // alert("This email is invalid.")
+                    Swal.fire({background: 'Black',timer:3000 ,Outlinecolor:'white',type: 'success',title: "The Email is not valid",textcolor: 'white',text:'Retry',icon:'error'}) 
+                });
+            }
         }
     }
 }

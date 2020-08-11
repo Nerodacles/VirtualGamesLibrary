@@ -107,7 +107,7 @@ export default {
 }
 
 .bg-jm {
-  background-color: rgb(29, 29, 29)
+  background-color: rgb(35,35,35)
 }
 
 .text-juanma{

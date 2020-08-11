@@ -23,7 +23,7 @@
         <label class="block text-white text-sm font-bold mb-0" style="margin-left:10px;" for="password">You have an account?
           <a class="inline-block align-baseline font-bold text-sm text-blue hover:text-blue-darker" href="/Login">Login</a>
         </label>
-        <a class="inline-block align-baseline font-bold mb-0 text-sm text-blue hover:text-blue-darker" style="margin-left:920px;" href="#">Help?</a>
+        <a class="inline-block text-white align-baseline font-bold mb-0 text-sm text-blue hover:text-blue-300" style="margin-left:920px;" href="#">Help?</a>
       </div>
     </div>
   </modal>
@@ -68,6 +68,6 @@
 
 <style>
   .bg-juanma {
-  background-color: rgb(66, 66, 66)
+  background-color: rgb(35,35,35)
 }
 </style>
