@@ -1,5 +1,5 @@
 <template>
-  <div class="text-white">
+  <div class="text-white bg-jm">
     <div class="hero bg-gray-600" :style="`background:url(${backgroundImage}); background-size:cover`">
       <div class="container mx-auto flex flex-col md:flex-row items-end pb-4" style="height:250px">
         <div class="w-full md:w-1/4"></div>
@@ -209,6 +209,10 @@ async asyncData({ params }) {
 
 .bg-juanma {
   background-color: rgb(66, 66, 66)
+}
+
+.bg-jm {
+  background-color: rgb(29, 29, 29)
 }
 
 .text-juanma{
