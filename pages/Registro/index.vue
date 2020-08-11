@@ -10,7 +10,7 @@
         <input class="shadow appearance-none border border-red rounded w-50 py-2 px-3 text-grey-darker mb-3"  style="width: 500px;" id="password"  v-model="input.password"  type="password" placeholder="******************">
           
         <label class="block text-white text-sm font-bold mb-2" for="password">Password again</label>
-        <input class="shadow appearance-none border border-red rounded w-50 py-2 px-3 text-grey-darker mb-3"  style="width: 500px;" id="Confirmation"  type="password" placeholder="******************">
+        <input class="shadow appearance-none border border-red rounded w-50 py-2 px-3 text-grey-darker mb-3"  style="width: 500px;" id="Confirmation"  v-model="input.password2" type="password" placeholder="******************">
       </div>
 
       <div class="flex items-center ">          
@@ -32,6 +32,7 @@
 <script>
   import VueCookies from 'vue-cookies'
   import axios from 'axios'
+  import Swal from 'sweetalert2'
 
   import firebase from '~/components/firebase.js'
 
@@ -41,17 +42,25 @@
       return {
         input: {
           username: "",
-          password: ""
+          password: "",
+          password2:""
         }
       }
     },
 
     methods: {
       Register() {
-        firebase.auth().createUserWithEmailAndPassword(this.input.username, this.input.password).catch(function(error) {
-          var errorCode = error.code;
-          var errorMessage = error.message; });
-          location="/"
+        if(this.input.password==this.input.password2){
+          firebase.auth().createUserWithEmailAndPassword(this.input.username, this.input.password).then(function(){
+            location('/')
+          }).catch(function(error) {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            Swal.fire({background: 'Black',timer:3000 ,Outlinecolor:'white',type: 'success',title: "The Email is not valid",textcolor: 'white',text:'Retry',icon:'error'}) 
+            });
+        }else{
+          Swal.fire({background: 'Black',timer:3000 ,Outlinecolor:'white',type: 'success',title: "Passwords are not the same ",textcolor: 'white',text:'Retry',icon:'error'})
+        }
       } 
     }
   }

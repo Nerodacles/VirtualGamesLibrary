@@ -112,6 +112,7 @@
 import axios from 'axios'
 import Media from '@dongido/vue-viaudio'
 import firebase from '~/components/firebase.js'
+import Swal from 'sweetalert2'
 
 import 'vue-material/dist/theme/default-dark.css'
 
@@ -122,8 +123,7 @@ export default {
 
   // aqui se guardaran las screenshots en un array
   data: () => ({ screen: [], comentarios: [], comm: { asunto: null, coment: null } }),
-
-  async asyncData({ params }) {
+async asyncData({ params }) {
     const games = await axios.get(`https://rawg-video-games-database.p.rapidapi.com/games/${params.id}`);
     const screen = await axios.get(`https://rawg-video-games-database.p.rapidapi.com/games/${params.id}/screenshots`);
     return { games: games.data, screen: screen.data.results };
@@ -158,7 +158,7 @@ export default {
             })
           })
         }
-        else { alert("You need to be logged in to comment") }
+        Swal.fire({background: 'Black',timer:3000 ,Outlinecolor:'white',type: 'success',title: "You need to be logged in to comment",textcolor: 'white',text:'Login or Register for coment',icon:'error'})
       }
       this.comm.asunto = null
       this.comm.coment = null
