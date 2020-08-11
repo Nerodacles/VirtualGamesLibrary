@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-jm">
+    <div class="bg-jm h-full">
         <modal>
             <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col text-white text-center" style=" border: 10px solid white; margin-top: 140px;background-color: Black;">
                 <div class="mb-4 justify-between">

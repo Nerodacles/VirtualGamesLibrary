@@ -168,8 +168,3 @@ export default {
 }
 </script>
 
-<style>
-.bg-jm {
-  background-color: rgb(65, 65, 65)
-}
-</style>
